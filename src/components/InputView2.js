@@ -11,7 +11,8 @@ const InputView2 = ({
     value, 
     onChangeText, 
     type, 
-    editable 
+    editable ,
+    style
 }) => {
     return (
         <View style={[styles.row]}>
@@ -22,7 +23,7 @@ const InputView2 = ({
             value={value}
             keyboardType={type}
             onChangeText={(i) => (onChangeText ? onChangeText(i) : null)}
-            style={[styles.flex1, styles.marginHm],{textAlign: "center", width: "100%"}}
+            style={style}
             underlineColorAndroid={"#000"}
             />
             {name ? (

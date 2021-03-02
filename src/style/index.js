@@ -15,7 +15,8 @@ export const colors = {
     blackBg: '#000',
     black: '#1F1F1F',
     opacity: '#1F1F1F99',
-    nine: '#4b4b4b'
+    nine: '#4b4b4b',
+    ten: '#b2bec3'
 };
 
 export const styles = StyleSheet.create({
@@ -45,11 +46,15 @@ export const styles = StyleSheet.create({
     backgroundNine: {
         backgroundColor: colors.nine
     },
+    backgroundTen: {
+        backgroundColor: colors.ten
+    },
     centercenter: {
         alignItems: 'center',
         justifyContent: 'center'
     },
     centerItem: {alignItems: 'center'},
+    textRight: {alignItems: 'flex-end'},
     textH1: {
         fontWeight: 'bold',
         fontSize: 36,
@@ -64,7 +69,7 @@ export const styles = StyleSheet.create({
     },
     textH4: {
         fontWeight: 'bold',
-        fontSize: 10,
+        fontSize: 12,
     },
     textMedium: {
         fontWeight: '700', 
@@ -92,7 +97,11 @@ export const styles = StyleSheet.create({
     },
     marginVs: {
         marginVertical: 8
+    },
+    marginMini: {
+        marginVertical: 4
     },  
+
     marginHs: {
         marginHorizontal: 8,
     },
@@ -100,7 +109,7 @@ export const styles = StyleSheet.create({
         marginHorizontal: 16,
     },
     marginButton: {
-        marginVertical: 5
+        marginVertical: 5,
     },
     lottieButton: {width: 19, height: 19},
     button: {
@@ -115,5 +124,31 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         elevation: 5,
         margin: 10,
+    },
+    lingkaran: {
+        position: 'absolute',
+        bottom: 10,
+        alignSelf: "center",
+        borderRadius: 80,
+        borderWidth: 1,
+        borderColor: colors.white,
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        shadowColor: "#000",
+        shadowOffset: {width:0, height:12},
+        shadowOpacity: 0.58,
+        shadowRadius: 16.84,
+        elevation: 24,
+
+    },
+    img: {
+        width: 40,
+        height: 40,
+    },
+    underCross: {
+        borderBottomWidth: 1,
+        borderColor: colors.greyOne,
+        backgroundColor: colors.backgroundNine,
     },
 })

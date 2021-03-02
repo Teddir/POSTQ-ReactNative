@@ -10,6 +10,10 @@ import {
     LogKasir,
     Register,
     RegisterTwo,
+    StaffScreen,
+    ProdukInformationScreen,
+    ProdukManagementScreen,
+    ProdukKategoriScreen,
 } from '../screen';
 import { View, Text, TouchableOpacity } from 'react-native';
 import AsynStorage from '@react-native-async-storage/async-storage';
@@ -42,7 +46,7 @@ const AppRouter = () => {
     const getProfile = () => {
         profile()
         .then((res) => {
-            console.log('hy Profie',res);
+            // console.log('hy Profie',res);
             if (res.status === "succes") {
                 disPatch(setUser(res))
                 console.log('isi User :', user.data[0].name)
@@ -72,23 +76,22 @@ const AppRouter = () => {
             headerMode={false}
             screenOptions={{animationEnable: false}}
             >
-            { token === '' || token === null ? (
-                <Stack.Screen name="LogKasir" component={LogKasir} />
-                
-            ) : user.data[0].role ? (
+            { token === null || token === '' ? (
                 <>
-                    { user.data[0].role === "1" ? (
-                        <>
-                        <Stack.Screen name="Login" component={Login} />
-                        </>                    
-                    ) : (
-                        <Stack.Screen name="RegisterTwo" component={RegisterTwo} />
-                    )}
-                    <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="LogKasir" component={LogKasir} />
+                <Stack.Screen name="RegisterTwo" component={RegisterTwo} />
+                <Stack.Screen name="Register" component={Register} />
                 </>
-            ) :  (
-                <Stack.Screen name="LogStaff" component={LogStaff} />
+            ) : (
+                <>
+                <Stack.Screen name="StaffScreen" component={StaffScreen} />
+                <Stack.Screen name="ProdukInScreen" component={ProdukInformationScreen}/>
+                <Stack.Screen name="ProdukMaScreen" component={ProdukManagementScreen}/>
+                <Stack.Screen name="ProdukKaScreen" component={ProdukKategoriScreen}/>
+                </>
             )}
+                            <Stack.Screen name="LogStaff" component={LogStaff} />
             <Stack.Screen name="Intro" component={Intro} />
             </Stack.Navigator>
         </NavigationContainer>

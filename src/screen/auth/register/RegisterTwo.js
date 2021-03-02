@@ -62,6 +62,7 @@ const RegisterTwo = (props) => {
                     value={phone_number}
                     onChangeText={(p) => setPhone_number(p)}
                     type="number-pad"
+                    style={[styles.flex1, styles.marginHm],{textAlign: "center", width: "100%"}}
                     />
                 </View>
             </View>

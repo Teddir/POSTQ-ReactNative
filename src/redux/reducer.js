@@ -29,7 +29,17 @@ const userReducer = (state = {}, action) => {
     }
 }
 
+const produkReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_PRODUK':
+            return action.data
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     user: userReducer,
     token: tokenReducer, 
+    produk: produkReducer,
 });

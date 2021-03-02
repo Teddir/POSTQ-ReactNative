@@ -6,6 +6,12 @@ import LogKasir from './auth/login/Kasir';
 import Register from './auth/register/Register';
 import RegisterTwo from './auth/register/RegisterTwo';
 
+import StaffScreen from './Staff';
+
+import ProdukInformationScreen from './produk/information';
+import ProdukManagementScreen from './produk/management';
+import ProdukKategoriScreen from './produk/kategori';
+
 export {
     Splash,
     Intro,
@@ -13,5 +19,9 @@ export {
     LogStaff,
     LogKasir,
     Register,
-    RegisterTwo
+    RegisterTwo,
+    StaffScreen,
+    ProdukInformationScreen,
+    ProdukManagementScreen,
+    ProdukKategoriScreen,
 };

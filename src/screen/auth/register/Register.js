@@ -21,7 +21,7 @@ const Register = (props) => {
     const [password, setPassword] = useState(null);
     const [loading, setLoading] = useState(false);
     const [secure, setSecure] = useState(true);
-    const [errors, setRrrors] = useState('');
+    const [errors, setRrrors] = useState(true);
     const dispatch = useDispatch()
 
     const handleSubmit = () => {
