@@ -63,6 +63,14 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 26,
     },
+    textMinH2: {
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+    textUpH3: {
+        fontWeight: 'bold',
+        fontSize: 17,
+    },
     textH3: {
         fontWeight: 'bold',
         fontSize: 15,
@@ -78,7 +86,10 @@ export const styles = StyleSheet.create({
     textInput: {
         borderRadius: 10,
         elevation: 3,
-        backgroundColor: colors.grey
+        backgroundColor: colors.grey,
+        borderWidth: 2,  //----------------> untuk border 
+        borderRadius:10,
+        borderColor: colors.primary
     },
     textUppercase: {textTransform: 'uppercase'},
     textWhite: {color: colors.white},
@@ -118,6 +129,15 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         elevation: 20,
     },
+    buttonTrans: {
+        // borderRadius: 10,
+        borderBottomWidth:1,
+        borderColor: colors.nine,
+        paddingVertical: 16,
+        alignItems: 'center',
+        width: "50%",
+        // elevation: 20,
+    },
     buttonLog: {
         borderRadius: 5,
         paddingVertical: 30,
@@ -143,12 +163,22 @@ export const styles = StyleSheet.create({
 
     },
     img: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
     },
     underCross: {
         borderBottomWidth: 1,
         borderColor: colors.greyOne,
+        backgroundColor: colors.backgroundNine,
+    },
+    underCrossBg: {
+        borderBottomWidth: 3,
+        borderColor: colors.primary,
+        backgroundColor: colors.backgroundNine,
+    },
+    topCrossBg: {
+        borderTopWidth: 3,
+        borderColor: colors.primary,
         backgroundColor: colors.backgroundNine,
     },
 })

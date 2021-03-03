@@ -15,6 +15,7 @@ import {
     ProdukManagementScreen,
     ProdukKategoriScreen,
 } from '../screen';
+import ButtonTopTab from '../components/ButtonTopTab';
 import { View, Text, TouchableOpacity } from 'react-native';
 import AsynStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -73,7 +74,7 @@ const AppRouter = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-            headerMode={false}
+            headerMode={true}
             screenOptions={{animationEnable: false}}
             >
             { token === null || token === '' ? (
@@ -86,7 +87,7 @@ const AppRouter = () => {
             ) : (
                 <>
                 <Stack.Screen name="StaffScreen" component={StaffScreen} />
-                <Stack.Screen name="ProdukInScreen" component={ProdukInformationScreen}/>
+                <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
                 <Stack.Screen name="ProdukMaScreen" component={ProdukManagementScreen}/>
                 <Stack.Screen name="ProdukKaScreen" component={ProdukKategoriScreen}/>
                 </>

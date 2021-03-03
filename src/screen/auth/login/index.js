@@ -12,7 +12,7 @@ const index = (props) => {
             <StatusBar backgroundColor={colors.grey} barStyle="dark-content"/>
             <View style={[styles.container]}>
                 <TouchableOpacity onPress={() => props.navigation.goBack()}>
-                    <Icon name="chevron-left" size={20} color={colors.secondary}/>
+                    <Icon name="chevron-left" size={20} color={colors.blackBg}/>
                 </TouchableOpacity>
             </View>
             <View style={[styles.marginVs, styles.marginHm]}>

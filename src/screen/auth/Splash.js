@@ -15,7 +15,7 @@ const Splash = () => {
                 styles.textCenter,
                 styles.marginVXL,
             ]}>
-            Ayo mulai usahamu dengan POSTQ, {'\n'} yang akan membantu proses transaksi anda lebih mudah dan tertata rapi.
+            Ayo mulai usahamu dengan POSTQ, {'\n'} yang akan membantu proses transaksi anda {'\n'}lebih mudah dan tertata rapi.
             </Text>
             <ActivityIndicator color={colors.secondary} size="large"/>
         </View>
