@@ -11,11 +11,13 @@ const InputView = ({
     value, 
     onChangeText, 
     type, 
-    editable 
+    editable,
+    disable
 }) => {
     return (
         <View style={[styles.textInput, styles.row]}>
             <TextInput 
+            disableFullscreenUI={disable}
             editable={editable}
             secureTextEntry={secure}
             placeholder={placeholder}

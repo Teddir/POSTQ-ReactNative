@@ -1,7 +1,7 @@
 import {removeToken, storeToken} from '../services/storage/Token';
 
 const setUser = (user) => {
-    console.log('ini user:', user);
+    console.log('redux user', user ? 'isi' : 'tidak isi');
     return {
         type: 'SET_USER',
         data: user,

@@ -25,11 +25,21 @@ const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
 const ButtonTopTab = (props) => {
+    const [barang, setBarang] = useState(null);
+    const [uid, setUid] = useState(null);
+    const [beli, setBeli] = useState(null);
+    const [jual, setJual] = useState(null);
+    const [stok, setStok] = useState(null);
+    const [merek, setMerek] = useState(null);
+    const [kategori, setKategori] = useState(null);
+    const [diskon, setDiskon] = useState(null);
+    const [avatar, setAvatar] = useState(null);
     const [loading, setLoading] = useState();
     const [error, setError] = useState();
 
+
     const handleSubmit = () => {
-        console.log('hySubmitAddData')
+        console.log('sasasasas', avatar)
     };
 
     const getData = () => {
@@ -39,7 +49,7 @@ const ButtonTopTab = (props) => {
     useEffect(() => {
         setTimeout(() => {
             getData();
-        }, 1000);
+        }, 1);
     }, []);
 
     const back = () => {
@@ -60,11 +70,25 @@ const ButtonTopTab = (props) => {
                 ]}>Buat Produk Baru</Text>
             </View>
             <Tab.Navigator tabBarOptions={{activeTintColor: colors.blackBg}}>
-                <Tab.Screen name="Informasi Produk" component={ProdukInformationScreen}/>
-                <Tab.Screen name="Manajement Stok" component={ProdukManagementScreen}/>
+                <Tab.Screen name="Informasi Produk" 
+                children={() => <ProdukInformationScreen 
+                    barang={barang} setBarang={setBarang}
+                    uid={uid} setUid={setUid}
+                    beli={beli} setBeli={setBeli}
+                    jual={jual} setJual={setJual}
+                    merek={merek} setMerek={setMerek}
+                    kategori={kategori} setKategori={setKategori}
+                    diskon={diskon} setDiskon={setDiskon}
+                    avatar={avatar} setAvatar={setAvatar}
+                />} />
+                <Tab.Screen name="Manajement Stok" 
+                children={() => <ProdukManagementScreen
+                    stok={stok} setStok={setStok}
+                />} />
             </Tab.Navigator>
             <View style={[styles.marginVs, styles.marginHm,]}>
-                <ButtonView 
+                <ButtonView
+                
                 title="Masuk"
                 loading={loading}
                 onPress={() => handleSubmit()}

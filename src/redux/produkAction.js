@@ -1,5 +1,5 @@
 export const setProduk = (data) => {
-    console.log('ini produk :', data);
+    console.log('redux produk :', data ? 'isi' : 'tidak isi');
     return {
         type: 'SET_PRODUK',
         data: data,

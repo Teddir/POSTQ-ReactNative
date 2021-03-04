@@ -23,11 +23,13 @@ import { profile } from '../services/endpoint/authServices';
 import { changeToken, setUser } from '../redux/action';
 import { colors, styles } from '../style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import kategori from '../screen/produk/kategori';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const AppRouter = () => {
+    const [kategori, setKategori] = useState(null);
     const [splash, setSplash] = useState(true);
     const {token, user} = useSelector((state)=> state);
     const disPatch = useDispatch();
@@ -88,8 +90,9 @@ const AppRouter = () => {
                 <>
                 <Stack.Screen name="StaffScreen" component={StaffScreen} />
                 <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
-                <Stack.Screen name="ProdukMaScreen" component={ProdukManagementScreen}/>
-                <Stack.Screen name="ProdukKaScreen" component={ProdukKategoriScreen}/>
+                <Stack.Screen name="ProdukKaScreen" children={() => <ProdukKategoriScreen 
+                    barang={kategori} setBarang={setKategori}
+                />}/>
                 </>
             )}
                             <Stack.Screen name="LogStaff" component={LogStaff} />

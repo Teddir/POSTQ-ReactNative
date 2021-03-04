@@ -9,7 +9,7 @@ export const getProduk = () => {
         .then((res) => {
             if (res.Status === "Succes") {
                 data.dataProduk = res.data
-                console.log('respon', data.dataProduk)
+                console.log('Ambil Produk dari API', data.dataProduk ? 'berhasil' : 'gagal')
             } else {
                 data.error = res.error;
             }

@@ -11,16 +11,9 @@ import InputView from '../../components/InputView';
 import InputViewImage from '../../components/InputViewImage';
 import InputViewButtom from '../../components/InputViewButtom';
 
-const management = (props) => {
-    const [barang, setBarang] = useState(null);
-    const [uid, setUid] = useState(null);
-    const [beli, setBeli] = useState(null);
-    const [jual, setJual] = useState(null);
-    const [stok, setStok] = useState(null);
-    const [merek, setMerek] = useState(null);
-    const [kategori, setKategori] = useState(null);
-    const [diskon, setDiskon] = useState(null);
-    const [avatar, setAvatar] = useState(null);
+const management = ({
+    stok, setStok
+}) => {
     const [open, setOpen] = useState(false);
     const [nameIcon, setNameIcon] = useState("toggle-off");
     const [disabled, setDisabled] = useState(true);
@@ -29,13 +22,11 @@ const management = (props) => {
         if (open == false) {
             setOpen(true);
             setNameIcon("toggle-on")
-            console.log('hd')
         } 
     
         if (open == true) {
             setOpen(false);
             setNameIcon("toggle-off")
-            console.log('hd')
         }    
     }
     return (
@@ -63,7 +54,6 @@ const management = (props) => {
                     <View style={[styles.topCrossBg, styles.marginVm]} />
                     <InputViewButtom
                     disabled={disabled}
-                    image={avatar}
                     />
                     <View style={[styles.underCrossBg, styles.marginVm]} />
                 </View>
@@ -72,14 +62,13 @@ const management = (props) => {
                     <Text style={[styles.marginVm]}>Jumlah Stok</Text>
                     <InputView 
                     placeholder="10"
-                    value={beli}
-                    onChangeText={(b) => setBeli(b)}
+                    value={stok}
+                    onChangeText={(b) => setStok(b)}
                     />
                     <Text style={[styles.marginVm]}>Stok Minimum</Text>
                     <InputView 
                     placeholder="0"
-                    value={merek}
-                    onChangeText={(b) => setMerek(b)}
+                    onChangeText={(b) => (0)}
                     />
                 </View>
                 ) : null}

@@ -129,6 +129,14 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         elevation: 20,
     },
+    buttonMini: {
+            borderRadius: 10,
+            paddingVertical: 15,
+            width: "50%",
+            alignItems: 'center',
+            elevation: 20,    
+            margin: 1
+    },
     buttonTrans: {
         // borderRadius: 10,
         borderBottomWidth:1,
@@ -163,8 +171,8 @@ export const styles = StyleSheet.create({
 
     },
     img: {
-        width: 50,
-        height: 50,
+        width: 65,
+        height: 65,
     },
     underCross: {
         borderBottomWidth: 1,

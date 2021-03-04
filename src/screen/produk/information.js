@@ -1,29 +1,77 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { View, Text, StatusBar, TouchableOpacity, Image, ScrollView, ToastAndroid, Linking, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon1 from 'react-native-vector-icons/Feather';
+import { useDispatch } from 'react-redux';
+import { launchImageLibrary } from 'react-native-image-picker';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { RNCamera } from 'react-native-camera';
+import { useNavigation } from '@react-navigation/native';
 
 import { getProduk } from '../../services/endpoint/produk';
 import { colors, styles } from '../../style';
 import InputView from '../../components/InputView';
 import InputViewImage from '../../components/InputViewImage';
+import ButtonView from '../../components/ButtonView';
+import { shadow } from 'react-native-paper';
+import InputViewDisable from '../../components/InputViewDisable';
 
-const information = (props) => {
-    const [barang, setBarang] = useState(null);
-    const [uid, setUid] = useState(null);
-    const [beli, setBeli] = useState(null);
-    const [jual, setJual] = useState(null);
-    const [stok, setStok] = useState(null);
-    const [merek, setMerek] = useState(null);
-    const [kategori, setKategori] = useState(null);
-    const [diskon, setDiskon] = useState(null);
-    const [avatar, setAvatar] = useState(null);
+const information = ({
+    barang, setBarang, 
+    uid, setUid,
+    beli, setBeli,
+    jual, setJual,
+    merek, setMerek,
+    kategori, setKategori,
+    diskon, setDiskon,
+    avatar, setAvatar,
+}) => {
     const [open, setOpen] = useState(false);
     const [nameIcon, setNameIcon] = useState("chevron-up");
+    const [uri, setUri] =useState(null);
+    const [modal, setModal] = useState(false);
+    const [scanType, setScanType] = useState('item');
+    const [scanItem, setScanItem] = useState('');
 
-    
+    const navigation = useNavigation();
+
+    const handleChoosePhoto = () => {
+        const options = {
+            includeBase64: false,
+        };
+        launchImageLibrary(options, (response) => {
+            console.log('response image picker ===', response);
+            if (response.fileSize < 1000000) {
+                const photo = {
+                    name: response.fileName,
+                    type: response.type,
+                    uri: response.uri,
+                };
+                console.log(photo)
+                setAvatar(response.uri)
+                setUri(response.uri)
+                console.log('ini uri avatar :', avatar);
+            } else {
+                ToastAndroid.show('File gambar terlalu besar', 1200);
+            }
+        });
+    };
+
+    const handleKategori = () => {
+        navigation.navigate('ProdukKaScreen')
+    }
+
+    const onScanSuccess = e => {
+        // console.log(e.type)
+        if (scanType === 'item') {
+            setScanItem(e);
+        } else {
+            setModal(false);
+        }
+    };
+
+    console.log('data Scan', scanItem); 
+
     const handleOpen = () => {
         if (open == false) {
             setOpen(true);
@@ -79,17 +127,21 @@ const information = (props) => {
                 <View>
                     <Text style={[styles.marginVm]}>Foto Produk</Text>
                     <InputViewImage 
-                    image={avatar}
+                    onPress={() => handleChoosePhoto()}
+                    uri={uri}
+                    value={avatar}
                     onChangeText={() => setAvatar()}
                     />
                     <Text style={[styles.marginVm]}>Kategori</Text>
-                    <InputView 
-                    placeholder="Pilih Kategori"
+                    <TouchableOpacity onPress={() => console.log('sas')}>
+                    <View>
+                    <InputViewDisable
                     value={kategori}
                     name={kategori ? 'chevron-right' : 'chevron-right'}
-                    onIconPress={() => console.log('tmKategori')}
-                    onChangeText={(k) => setKategori(k)}
+                    onPress={() => handleKategori()}
                     />
+                    </View>
+                    </TouchableOpacity>
                     <Text style={[styles.marginVm]}>Harga Modal</Text>
                     <InputView 
                     placeholder="10.000"
@@ -107,7 +159,7 @@ const information = (props) => {
                     placeholder="AFgr456h#gfg"
                     value={uid}
                     name={uid ? 'barcode-scan' : 'barcode-scan'}
-                    onIconPress={() => console.log('tmBarcode')}
+                    onIconPress={() => setModal(!modal)}
                     onChangeText={(b) => setUid(b)}
                     />
                     <Text style={[styles.marginVm]}>Diskon Produk</Text>
@@ -121,6 +173,25 @@ const information = (props) => {
                     </View>}
             </View>
             </ScrollView>
+            <Modal onRequestClose={() => setModal(false)} visible={modal}>
+            <QRCodeScanner
+                vibrate
+                showMarker
+                reactivate
+                reactivateTimeout={5000}
+                onRead={onScanSuccess}
+                topContent={
+                <Text >
+                    your computer and scan the QR code.
+                </Text>
+                }
+                bottomContent={
+                <TouchableOpacity onPress={() => setModal(false)}>
+                    <Text >Back { scanType === 'item' ? 'barang' : null } </Text>
+                </TouchableOpacity>
+                }
+            />
+            </Modal>
         </View>
     )
 }

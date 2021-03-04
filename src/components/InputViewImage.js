@@ -12,9 +12,9 @@ const InputViewImage = ({
     value, 
     onChangeText, 
     type, 
-    editable ,
+    onPress ,
     disabled,
-    image
+    uri
 }) => {
     return (
         <View style={[
@@ -32,14 +32,16 @@ const InputViewImage = ({
             onChangeText={(i) => (onChangeText ? onChangeText(i) : null)}
             style={[styles.flex1, styles.marginHm]}
             /> */}
-            {image ? 
+            {uri ? 
             <>
-                <View style={[
-                    styles.img,
-                    styles.marginVs,
-                    styles.marginHs
-                ]}>
-                    <Image source={{uri: image}}/>
+                <View style={[styles.flex1]}>
+                    <View style={[
+                        styles.img,
+                        styles.marginVs,
+                        styles.marginHs
+                    ]}>
+                        <Image source={{uri: uri}} style={[styles.img, styles.marginHs, {borderRadius:5}]}/>
+                    </View>
                 </View>
             </> :
             <>
@@ -50,7 +52,7 @@ const InputViewImage = ({
                     styles.marginHs,
                     {borderRadius: 10}
                 ]}>
-                <View style={[styles.centercenter, styles.flex1,]}>
+                <View style={[styles.centercenter, styles.flex1]}>
                     <Icon name="image-area" size={30} color={colors.white}/>
                 </View>
                 </View>
@@ -61,10 +63,11 @@ const InputViewImage = ({
             style={[
                 styles.flex1,
                 styles.textRight,
-                styles.marginVs,
+                styles.marginVm,
                 styles.marginHs
             ]}>
             <ButtonView 
+            onPress={onPress}
             disabled={disabled}
             title="Pilih Foto"
             />

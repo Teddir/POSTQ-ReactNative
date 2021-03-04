@@ -22,7 +22,7 @@ import { styles, colors } from '../../style';
 const index = ({navigation}) => {
     const [ loading, setLoading ] = useState(false);
     const { user, produk } = useSelector((state) => state)
-    console.log('Hy Produk', produk.dataProduk);    
+    console.log('Produk', produk.dataProduk ? 'ada' : 'tidak ada');    
     
     const getData = () => {
         getProduk();
@@ -35,8 +35,8 @@ const index = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <View style={[styles.flex1]}>
-            <StatusBar backgroundColor={colors.grey} barStyle="dark-content" />
+        <View style={[styles.flex1, styles.backgroundLight]}>
+            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
                 <View style={[styles.underCross, styles.marginVs]}>
                     <View style={[ styles.marginHm ]}>
                     <Icon1 name="dehaze" size={24}/>
@@ -74,15 +74,15 @@ const index = ({navigation}) => {
                                 >
                                     <View style={[
                                         styles.flex1,
+                                        styles.underCross,
+                                        styles.marginHm, 
                                     ]}>
                                         <TouchableOpacity>
                                         <View 
                                         style={[
-                                            styles.marginHm, 
                                             styles.marginMini,
                                             styles.row,
                                             styles.centerItem,
-                                            styles.underCross
                                         ]}>
                                             <Image 
                                             source={{uri: produk.avatar}}
@@ -116,7 +116,7 @@ const index = ({navigation}) => {
                 </>
             ): null}
             <View style={[styles.flex1, styles.marginHxl]}>
-                <View style={[styles.marginButton, {marginBottom: 70}]}>
+                <View style={[styles.marginButton, {marginBottom: 50}]}>
                     <ButtonView
                     title="Tambah Produk"
                     onPress={() => {navigation.navigate('ProdukInScreen')}}
