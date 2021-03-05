@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ToastAndroid } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import {
     Splash,
@@ -12,14 +12,13 @@ import {
     StaffScreen,
     ProdukInformationScreen,
     ProdukManagementScreen,
-    ProdukKategoriScreen,
     
 } from '../screen';
 import {createStackNavigator} from '@react-navigation/stack';
 import { styles, colors } from '../style';
 import  Icon  from 'react-native-vector-icons/FontAwesome5';
 import ButtonView from './ButtonView';
-import { getProduk } from '../services/endpoint/produk';
+import { getProduk, addProduk } from '../services/endpoint/produk';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -34,12 +33,28 @@ const ButtonTopTab = (props) => {
     const [kategori, setKategori] = useState(null);
     const [diskon, setDiskon] = useState(null);
     const [avatar, setAvatar] = useState(null);
-    const [loading, setLoading] = useState();
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState();
 
 
     const handleSubmit = () => {
-        console.log('sasasasas', avatar)
+        console.log('avatar masuk', avatar)
+        setLoading(true);
+        addProduk(barang, uid, beli, jual, kategori, merek, stok, diskon, avatar)
+        .then((res) => {
+            console.log(res)
+            if (res.code === 200) {
+                ToastAndroid.show('Berhasil ditambah', 1200);
+                props.navigation.navigate('StaffScreen');
+            } else {
+                ToastAndroid.show('Gagal menambah', 1200);
+                setLoading(false);
+            }
+        })
+        .catch((e) => {
+            ToastAndroid.show('Gagal melakukan permintaan', 1200);
+            console.log(e);
+        });
     };
 
     const getData = () => {
@@ -88,7 +103,6 @@ const ButtonTopTab = (props) => {
             </Tab.Navigator>
             <View style={[styles.marginVs, styles.marginHm,]}>
                 <ButtonView
-                
                 title="Masuk"
                 loading={loading}
                 onPress={() => handleSubmit()}

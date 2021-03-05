@@ -10,7 +10,6 @@ import StaffScreen from './Staff';
 
 import ProdukInformationScreen from './produk/information';
 import ProdukManagementScreen from './produk/management';
-import ProdukKategoriScreen from './produk/kategori';
 
 export {
     Splash,
@@ -23,5 +22,4 @@ export {
     StaffScreen,
     ProdukInformationScreen,
     ProdukManagementScreen,
-    ProdukKategoriScreen,
 };

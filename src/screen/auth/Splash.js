@@ -8,10 +8,10 @@ const Splash = () => {
         <View style={[styles.flex1, styles.centercenter]}>
             <StatusBar backgroundColor={colors.lightBg} barStyle="dark-content"/>
             <Logo />
-            <Text style={[styles.textH2, styles.textSecondary]}>Kasir & Pembayaran</Text>
+            <Text style={[styles.textH2, styles.textBlack]}>Kasir & Pembayaran</Text>
             <Text style={[
                 styles.textH3,
-                styles.textSecondary,
+                styles.textPrimary,
                 styles.textCenter,
                 styles.marginVXL,
             ]}>

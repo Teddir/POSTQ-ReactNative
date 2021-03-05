@@ -64,11 +64,13 @@ const management = ({
                     placeholder="10"
                     value={stok}
                     onChangeText={(b) => setStok(b)}
+                    type="number-pad"
                     />
                     <Text style={[styles.marginVm]}>Stok Minimum</Text>
                     <InputView 
                     placeholder="0"
                     onChangeText={(b) => (0)}
+                    type="number-pad"
                     />
                 </View>
                 ) : null}

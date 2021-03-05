@@ -22,8 +22,15 @@ const InputViewDisable = ({
                     <Text style={[
                         styles.flex1, 
                         styles.marginHm, 
-                        styles.marginVm
-                    ]}>{value ? value : "Pilihh Kategori"}</Text>
+                        styles.marginVm,
+                        styles.textPrimary
+                    ]}>{value ? (
+                        <>
+                        <Text style={{color: colors.blackBg}}>
+                            {value}
+                        </Text>
+                        </>
+                    ) : "........."}</Text>
                     {name ? (
                         <View style={[styles.centercenter, styles.marginHs]}>
                             <Icon name={name} size={24} color={colors.primary} />

@@ -32,7 +32,9 @@ const userReducer = (state = {}, action) => {
 const produkReducer = (state = {}, action) => {
     switch (action.type) {
         case 'SET_PRODUK':
-            return action.data
+            return action.data;
+        case 'SET_ADD_PRODUK':
+            return action.data;
         default:
             return state;
     }

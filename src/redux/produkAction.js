@@ -8,6 +8,7 @@ export const setProduk = (data) => {
 console.log('setProduk :', setProduk());
 
 export const setAddProduk = (data) => {
+    console.log('add Produk :', data ? 'success' : 'gagal')
     return {
         type: 'SET_ADD_PRODUK',
         data: data,

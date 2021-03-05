@@ -13,7 +13,6 @@ import {
     StaffScreen,
     ProdukInformationScreen,
     ProdukManagementScreen,
-    ProdukKategoriScreen,
 } from '../screen';
 import ButtonTopTab from '../components/ButtonTopTab';
 import { View, Text, TouchableOpacity } from 'react-native';
@@ -23,7 +22,6 @@ import { profile } from '../services/endpoint/authServices';
 import { changeToken, setUser } from '../redux/action';
 import { colors, styles } from '../style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import kategori from '../screen/produk/kategori';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -90,13 +88,10 @@ const AppRouter = () => {
                 <>
                 <Stack.Screen name="StaffScreen" component={StaffScreen} />
                 <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
-                <Stack.Screen name="ProdukKaScreen" children={() => <ProdukKategoriScreen 
-                    barang={kategori} setBarang={setKategori}
-                />}/>
                 </>
             )}
-                            <Stack.Screen name="LogStaff" component={LogStaff} />
-            <Stack.Screen name="Intro" component={Intro} />
+                <Stack.Screen name="LogStaff" component={LogStaff} />
+                <Stack.Screen name="Intro" component={Intro} />
             </Stack.Navigator>
         </NavigationContainer>
         // <View>
