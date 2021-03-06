@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StatusBar, TouchableOpacity, Image, ScrollView, ToastAndroid, Linking, Modal, KeyboardAvoidingView, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon1 from 'react-native-vector-icons/Feather';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { launchImageLibrary } from 'react-native-image-picker';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
@@ -19,6 +19,7 @@ import { shadow } from 'react-native-paper';
 import InputViewDisable from '../../components/InputViewDisable';
 import ButtonViewMini from '../../components/ButtonViewMini';
 import InputView2 from '../../components/InputView2';
+import { getKategori } from '../../services/endpoint/kategori';
 
 const information = ({
     barang, setBarang, 
@@ -41,8 +42,23 @@ const information = ({
     const [isiKate, setIsiKate] = useState(null);
     const [modalKate, setModalKate] = useState(false);
     const [modalAddKate, setModalAddKate] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const navigation = useNavigation();
+    const { user, produk, listKategori } = useSelector((state) => state)
+    console.log('kategori', listKategori.dataKategori ? 'ada' : 'tidak ada' );    
+
+    const getData = () => {
+        getProduk();
+        getKategori();
+    }
+
+    useEffect(() => {
+        const unsub = navigation.addListener('focus', () => {
+            getData();
+        });
+        return unsub;
+    }, [navigation]);
 
     const handleChoosePhoto = () => {
         const options = {
@@ -69,12 +85,14 @@ const information = ({
     const handleSave = () => {
         setKategori(isiKate);
         setModalAddKate(false);
-        // setModalKate(false);
     }
-
-    const handleTakeKategori = () => {
+    
+    const handleTakeKategori = (data) => {
+        console.log(data);
+        setKategori(data);
         setModalKate(false);                        
     }
+
 
     const onScanSuccess = e => {
         // console.log(e)
@@ -86,8 +104,6 @@ const information = ({
             setModal(false);
         }
     };
-
-    console.log('data Scan', scanItem); 
 
     const handleOpen = () => {
         if (open == false) {
@@ -153,7 +169,7 @@ const information = ({
                     <TouchableOpacity onPress={() => console.log('sas')}>
                     <View>
                     <InputViewDisable
-                    value={kategori}
+                    value={kategori ? kategori.name : null}
                     name={kategori ? 'chevron-right' : 'chevron-right'}
                     onPress={() => setModalKate(true)}
                     />
@@ -236,36 +252,51 @@ const information = ({
                     onIconPress={() => setSearch(search)}
                     />
                 </View>
-                { kategori === null ? (
-                <>
-                <View style={[styles.flex1]}/>
-                <View style={[styles.centercenter, styles.marginVXL]}>
-                    <LogoKategori  width="50%" height="50%" />
-                    <Text style={[styles.textMinH2, styles.marginVs]}>Kategori Kosong</Text>
-                    <Text style={{color: colors.greyOne}}>Mulai dengan membuat kategori produk terlebih dahulu</Text>
-                </View>
-                </>
-                ) : <>
-                <TouchableOpacity onPress={() => handleTakeKategori()}>
-                    <View style={[styles.marginVs]}/>
-                    <View style={[styles.marginHm, styles.row]}>
-                        <Text style={[
-                            styles.flex1, 
-                            styles.marginVm,
-                            {fontWeight: "bold", fontSize: 18}
-                        ]}>{kategori}</Text>
-                        <View style={[styles.centercenter, styles.textRight]}>
-                            <Icon2 name="chevron-small-right" size={25}/>
+                {user && listKategori?.dataKategori?.length > 0 ? (
+                    <>
+                    {listKategori.dataKategori ? (
+                        <>
+                        <View>
+                            {listKategori.dataKategori.map((kategoris) => {
+                                return (
+                                    <>
+                                    <View style={[styles.marginVs]} key={kategoris.id}/>
+                                    <TouchableOpacity onPress={() => handleTakeKategori(kategoris)} >
+                                    <View style={[styles.marginHm, styles.row]}>
+                                        <Text style={[
+                                            styles.flex1, 
+                                            styles.marginVm,
+                                            {fontWeight: "bold", fontSize: 18}
+                                        ]}>{kategoris.name}</Text>
+                                        <View style={[styles.centercenter, styles.textRight]}>
+                                            <Icon2 name="chevron-small-right" size={25}/>
+                                        </View>
+                                    </View>
+                                    </TouchableOpacity>
+                                    <View style={[styles.underCross]}/>
+                                    </>
+                                )
+                            })}
                         </View>
+                        </>
+                    ): loading}
+                    </>
+                ) : 
+                <>
+                    <View style={[styles.flex1]}/>
+                    <View style={[styles.centercenter, styles.marginVXL]}>
+                        <LogoKategori  width="50%" height="50%" />
+                        <Text style={[styles.textMinH2, styles.marginVs]}>Kategori Kosong</Text>
+                        <Text style={{color: colors.greyOne}}>Mulai dengan membuat kategori produk terlebih dahulu</Text>
                     </View>
-                </TouchableOpacity>
-                <View style={[styles.underCross]}/>
-                </>}
+                </>
+                }
                 
+
                 <View style={[styles.flex1, styles.centercenter]}/>
                 <View style={[styles.marginVs, styles.marginHm,]}>
                     <ButtonView 
-                    title="Masuk"
+                    title="Tambah Kategori"
                     // loading={loading}
                     onPress={() => setModalAddKate(true)}
                     />

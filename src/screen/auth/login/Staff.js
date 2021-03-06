@@ -48,10 +48,10 @@ const Staff = (props) => {
                     getData();
                     props.navigation.navigate('StaffScreen');
                 } else {
-                    ToastAndroid.show('Harap login di web', ToastAndroid.LONG);
+                    ToastAndroid.show('Harap login di web', 1200);
                 }
             } else {
-                ToastAndroid.show(res.message, ToastAndroid.LONG)
+                ToastAndroid.show(res.message, 1200)
             }
         })
         .catch((e) => console.log(e))

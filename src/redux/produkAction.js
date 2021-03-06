@@ -5,7 +5,6 @@ export const setProduk = (data) => {
         data: data,
     };
 };
-console.log('setProduk :', setProduk());
 
 export const setAddProduk = (data) => {
     console.log('add Produk :', data ? 'success' : 'gagal')

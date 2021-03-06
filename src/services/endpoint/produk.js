@@ -1,7 +1,7 @@
-import { api } from '../API/webApi';
+import { api, host } from '../API/webApi';
 import store from '../../redux/store';
 import { setProduk } from '../../redux/produkAction';
-// import axios from 'axios';
+import axios from 'axios';
 
 export const getProduk = () => {
     const data = {loading: true, dataProduk: {}, error: false};
@@ -23,7 +23,8 @@ export const getProduk = () => {
 };
 
 export const addProduk = (name, uid, hb, hj, kategori, merek, stok, diskon, avatar = null) => {
-    const { token } = store.getState();
+    
+    // console.log('ini token ===',token)
     const body = {
         name,
         uid,
@@ -34,38 +35,19 @@ export const addProduk = (name, uid, hb, hj, kategori, merek, stok, diskon, avat
         stok,
         diskon,
     };
+
     if (avatar) {
         const data = new FormData();
         data.append('avatar', {
-            name: avatar.fileName,
+            name: avatar.name,
             type: avatar.type,
             uri: avatar.uri,
         });
+        Object.keys(body).forEach((key) => {
+        data.append(key, body[key]);
+    });
+    console.log(avatar.name)
+      return api('POST', '/barangs/create', data, avatar)
     }
-    return api('POST', '/barangs/create', body, avatar)
 
-    // if (avatar) {
-    //     const data = new FormData();
-    //     data.append('avatar', {
-    //         name: avatar.fileName,
-    //         type: avatar.type,
-    //         uri: avatar.uri,
-    //     });
-    //     Object.keys(body).forEach((key) => {
-    //     data.append(key, body[key]);
-    // });
-    // //   return axios.post('https://app-postq.herokuapp.com/api' + '/api/barangs/create', data, {
-    // //     headers: {
-    // //       'Content-Type': 'multipart/form-data',
-    // //       Authorization: 'Bearer ' + token,
-    // //     },
-    // //   });
-    // } else {
-    // //   return apiPrivate().post('/profil', body);
-    // console.log('dsds');
-    // }
-
-
-        
 }
-

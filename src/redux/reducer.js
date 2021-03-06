@@ -40,8 +40,18 @@ const produkReducer = (state = {}, action) => {
     }
 }
 
+const kategoriReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_KATEGORI':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     user: userReducer,
     token: tokenReducer, 
     produk: produkReducer,
+    listKategori: kategoriReducer,
 });

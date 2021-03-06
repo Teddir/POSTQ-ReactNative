@@ -9,7 +9,8 @@ export const api = (method, path, body = null, file = null) => {
     headers.append('Accept', 'application/json');
     file ? null : headers.append('Content-Type', 'application/json');
     token !== null ? headers.append('Authorization', 'Bearer ' + token) : null;
-
+    
+    console.log('ini di endpoint', file)
     const data = fetch(host + path, {
         method: method,
         headers: headers,

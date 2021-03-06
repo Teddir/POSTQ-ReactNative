@@ -19,6 +19,7 @@ import { styles, colors } from '../style';
 import  Icon  from 'react-native-vector-icons/FontAwesome5';
 import ButtonView from './ButtonView';
 import { getProduk, addProduk } from '../services/endpoint/produk';
+import { getKategori } from '../services/endpoint/kategori';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -38,14 +39,15 @@ const ButtonTopTab = (props) => {
 
 
     const handleSubmit = () => {
-        console.log('avatar masuk', avatar)
+        console.log('avatar masuk', barang, uid, beli, jual, kategori, merek, stok, diskon, avatar)
         setLoading(true);
-        addProduk(barang, uid, beli, jual, kategori, merek, stok, diskon, avatar)
+        addProduk(barang, uid, beli, jual, kategori, merek, stok, diskon+"%", avatar)
         .then((res) => {
+            ToastAndroid.show('Berhasil ditambah', 1200);
             console.log(res)
-            if (res.code === 200) {
-                ToastAndroid.show('Berhasil ditambah', 1200);
+            if (res.Status === "Sucess") {
                 props.navigation.navigate('StaffScreen');
+                setLoading(false);
             } else {
                 ToastAndroid.show('Gagal menambah', 1200);
                 setLoading(false);
@@ -54,11 +56,13 @@ const ButtonTopTab = (props) => {
         .catch((e) => {
             ToastAndroid.show('Gagal melakukan permintaan', 1200);
             console.log(e);
+            setLoading(false);
         });
     };
 
     const getData = () => {
         getProduk();
+        getKategori();
     }
 
     useEffect(() => {

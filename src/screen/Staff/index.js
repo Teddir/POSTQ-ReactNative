@@ -16,16 +16,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ButtonView from '../../components/ButtonView';
 import InputView2 from '../../components/InputView2';
+import { getKategori } from '../../services/endpoint/kategori';
 import { getProduk } from '../../services/endpoint/produk';
 import { styles, colors } from '../../style';
 
 const index = ({navigation}) => {
     const [ loading, setLoading ] = useState(false);
-    const { user, produk } = useSelector((state) => state)
-    console.log('Produk', produk.dataProduk ? 'ada' : 'tidak ada');    
+    const { user, produk, listKategori } = useSelector((state) => state)
+    console.log('Produk ', produk.dataProduk ? 'ada' : 'tidak ada produk');  
     
     const getData = () => {
         getProduk();
+        getKategori();
     }
     useEffect(() => {
         const unsub = navigation.addListener('focus', () => {
