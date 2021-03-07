@@ -12,7 +12,7 @@ export const getProduk = () => {
                 data.dataProduk = res.data
                 console.log('Ambil Produk dari API', data.dataProduk ? 'berhasil' : 'gagal')
             } else {
-                data.error = res.error;
+                data.error = res.error
             }
         })
         .catch((e) => (data.error = e.message))
