@@ -8,11 +8,13 @@ import {
     RefreshControl, 
     Image, 
     TextInput, 
-    ToastAndroid 
+    ToastAndroid, 
+    TouchableWithoutFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon1 from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
 import ButtonView from '../../components/ButtonView';
 import InputView2 from '../../components/InputView2';
@@ -36,12 +38,18 @@ const index = ({navigation}) => {
         return unsub;
     }, [navigation]);
 
+    const toPrice = (price) => {
+        return _.replace(price, /\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
     return (
         <View style={[styles.flex1, styles.backgroundLight]}>
             <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
                 <View style={[styles.underCross, styles.marginVs]}>
                     <View style={[ styles.marginHm ]}>
-                    <Icon1 name="dehaze" size={24}/>
+                        <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
+                        <Icon1 name="dehaze" size={24}/>
+                        </TouchableWithoutFeedback>
                     <View style={[styles.row, styles.marginVs, styles.centerItem, ]}>
                         <Icon name="text-box-search-outline" size={25}/>
                         <TextInput 
@@ -104,7 +112,7 @@ const index = ({navigation}) => {
                                                 styles.marginVm,
                                                 styles.textRight
                                             ]}>
-                                                <Text>Rp.{produk.hj}</Text>
+                                                <Text>Rp.{toPrice(produk.hj)},-</Text>
                                             </View>
                                         </View>
                                         </TouchableOpacity>

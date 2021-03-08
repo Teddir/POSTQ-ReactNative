@@ -13,6 +13,8 @@ import {
     StaffScreen,
     ProdukInformationScreen,
     ProdukManagementScreen,
+    ProfileScreen,
+    DraweUser,
 } from '../screen';
 import ButtonTopTab from '../components/ButtonTopTab';
 import { View, Text, TouchableOpacity } from 'react-native';
@@ -84,13 +86,35 @@ const AppRouter = () => {
                 <Stack.Screen name="RegisterTwo" component={RegisterTwo} />
                 <Stack.Screen name="Register" component={Register} />
                 </>
+            ) : user.role ? (
+                <>
+                {user.role === "1" ? (
+                    <>
+                    <Stack.Screen name="StaffScreen" component={StaffScreen} />
+                    <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
+                    <Stack.Screen name="ProfileScreen">
+                        {() => (
+                            <Drawer.Navigator 
+                            drawerContent={(props) => <DraweUser {...props} />}>
+                            <Drawer.Screen 
+                            name="Staff"
+                            component={StaffScreen}
+                            />
+                            </Drawer.Navigator>
+                            
+                        )}
+                    </Stack.Screen>
+                    </>
+                ) : user.role === "2" ? (
+                    <>
+                    </>
+                ) : null}
+                </>
             ) : (
                 <>
-                <Stack.Screen name="StaffScreen" component={StaffScreen} />
-                <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
+                <Stack.Screen name="LogStaff" component={LogStaff} />
                 </>
             )}
-                <Stack.Screen name="LogStaff" component={LogStaff} />
                 <Stack.Screen name="Intro" component={Intro} />
             </Stack.Navigator>
         </NavigationContainer>

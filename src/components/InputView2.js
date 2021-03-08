@@ -28,8 +28,8 @@ const InputView2 = ({
             />
             {name ? (
                 <TouchableOpacity
-                    onPress={()=> onIconPress()}
-                    style={[styles.centercenter, styles.marginHs]}>
+                onPress={()=> onIconPress()}
+                style={[styles.centercenter, styles.marginHs]}>
                     <Icon name={name} size={24} color={colors.primary}/>
                 </TouchableOpacity>
             ): null }

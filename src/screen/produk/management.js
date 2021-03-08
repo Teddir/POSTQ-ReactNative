@@ -16,7 +16,7 @@ const management = ({
 }) => {
     const [open, setOpen] = useState(false);
     const [nameIcon, setNameIcon] = useState("toggle-off");
-    const [disabled, setDisabled] = useState(true);
+    const [editable, setEditable] = useState(false);
 
     const handleOpen = () => {
         if (open == false) {
@@ -53,7 +53,7 @@ const management = ({
                 <View style={[styles.marginVm]}>
                     <View style={[styles.topCrossBg, styles.marginVm]} />
                     <InputViewButtom
-                    disabled={disabled}
+                    stok={ stok ? stok.tbarang : null}
                     />
                     <View style={[styles.underCrossBg, styles.marginVm]} />
                 </View>
@@ -61,8 +61,9 @@ const management = ({
                 <View>
                     <Text style={[styles.marginVm]}>Jumlah Stok</Text>
                     <InputView 
+                    editable={editable}
                     placeholder="10"
-                    value={stok}
+                    value={stok ? stok.tbarang : null}
                     onChangeText={(b) => setStok(b)}
                     type="number-pad"
                     />

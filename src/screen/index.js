@@ -11,6 +11,9 @@ import StaffScreen from './Staff';
 import ProdukInformationScreen from './produk/information';
 import ProdukManagementScreen from './produk/management';
 
+import ProfileScreen from './User';
+import DraweUser from './User/DraweUser';
+
 export {
     Splash,
     Intro,
@@ -22,4 +25,6 @@ export {
     StaffScreen,
     ProdukInformationScreen,
     ProdukManagementScreen,
+    ProfileScreen,
+    DraweUser,
 };

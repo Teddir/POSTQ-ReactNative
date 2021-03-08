@@ -22,7 +22,7 @@ export const getProduk = () => {
         });
 };
 
-export const addProduk = (name, uid, hb, hj, kategori, merek, stok, diskon, avatar = null) => {
+export const addProduk = (name, uid, hb, hj, kategori, merek, stok, diskon, avatar) => {
     
     // console.log('ini token ===',token)
     const body = {
@@ -35,7 +35,7 @@ export const addProduk = (name, uid, hb, hj, kategori, merek, stok, diskon, avat
         stok,
         diskon,
     };
-
+    console.log(body);
     if (avatar) {
         const data = new FormData();
         data.append('avatar', {
@@ -48,6 +48,8 @@ export const addProduk = (name, uid, hb, hj, kategori, merek, stok, diskon, avat
     });
     console.log(avatar.name)
       return api('POST', '/barangs/create', data, avatar)
+    } else {
+        return api('POST', '/barangs/create', body)
     }
 
 }

@@ -20,6 +20,7 @@ import  Icon  from 'react-native-vector-icons/FontAwesome5';
 import ButtonView from './ButtonView';
 import { getProduk, addProduk } from '../services/endpoint/produk';
 import { getKategori } from '../services/endpoint/kategori';
+import { getProdukBuy } from '../services/endpoint/produkBuy';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -39,9 +40,9 @@ const ButtonTopTab = (props) => {
 
 
     const handleSubmit = () => {
-        console.log('avatar masuk', barang, uid, beli, jual, kategori, merek, stok, diskon, avatar)
+        // console.log('avatar masuk', barang, uid, beli, jual, kategori, merek, stok, diskon, avatar)
         setLoading(true);
-        addProduk(barang, uid, beli, jual, kategori, merek, stok, diskon+"%", avatar)
+        addProduk(barang ? barang.barang : null, uid, beli ? beli.tbayar : null, jual, kategori ? kategori.id : null, merek, stok ? stok.tbarang : null, diskon, avatar)
         .then((res) => {
             ToastAndroid.show('Berhasil ditambah', 1200);
             console.log(res)
@@ -63,6 +64,7 @@ const ButtonTopTab = (props) => {
     const getData = () => {
         getProduk();
         getKategori();
+        getProdukBuy();
     }
 
     useEffect(() => {
@@ -99,6 +101,7 @@ const ButtonTopTab = (props) => {
                     kategori={kategori} setKategori={setKategori}
                     diskon={diskon} setDiskon={setDiskon}
                     avatar={avatar} setAvatar={setAvatar}
+                    stok={stok} setStok={setStok}
                 />} />
                 <Tab.Screen name="Manajement Stok" 
                 children={() => <ProdukManagementScreen
