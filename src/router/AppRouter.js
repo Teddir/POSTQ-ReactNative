@@ -14,7 +14,7 @@ import {
     ProdukInformationScreen,
     ProdukManagementScreen,
     ProfileScreen,
-    DraweUser,
+    DrawerScreen,
 } from '../screen';
 import ButtonTopTab from '../components/ButtonTopTab';
 import { View, Text, TouchableOpacity } from 'react-native';
@@ -85,25 +85,49 @@ const AppRouter = () => {
                 <Stack.Screen name="LogKasir" component={LogKasir} />
                 <Stack.Screen name="RegisterTwo" component={RegisterTwo} />
                 <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="LogStaff" component={LogStaff} />
                 </>
             ) : user.role ? (
                 <>
                 {user.role === "1" ? (
                     <>
-                    <Stack.Screen name="StaffScreen" component={StaffScreen} />
-                    <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
-                    <Stack.Screen name="ProfileScreen">
+                    {/* <Stack.Screen name="Profile">
                         {() => (
                             <Drawer.Navigator 
-                            drawerContent={(props) => <DraweUser {...props} />}>
+                            drawerContent={(props) => <DrawerScreen {...props} />}>
                             <Drawer.Screen 
-                            name="Staff"
+                            name="ProfileScreen"
+                            component={ProfileScreen}
+                            />
+                            </Drawer.Navigator>
+                            
+                        )}
+                    </Stack.Screen>   */}
+                    <Stack.Screen name="Staff">
+                        {() => (
+                            <Drawer.Navigator 
+                            drawerContent={(props) => <DrawerScreen {...props} />}>
+                            <Drawer.Screen 
+                            name="StaffScreen"
                             component={StaffScreen}
                             />
                             </Drawer.Navigator>
                             
                         )}
                     </Stack.Screen>
+                    {/* <Stack.Screen name="ProdukIn">
+                        {() => (
+                            <Drawer.Navigator 
+                            drawerContent={(props) => <DrawerScreen {...props} />}>
+                            <Drawer.Screen 
+                            name="ProdukInScreen"
+                            component={ButtonTopTab}
+                            />
+                            </Drawer.Navigator>
+                            
+                        )}
+                    </Stack.Screen>                   */}
+                    <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
                     </>
                 ) : user.role === "2" ? (
                     <>
@@ -112,6 +136,19 @@ const AppRouter = () => {
                 </>
             ) : (
                 <>
+                <Stack.Screen name="Staff">
+                        {() => (
+                            <Drawer.Navigator 
+                            drawerContent={(props) => <DrawerScreen {...props} />}>
+                            <Drawer.Screen 
+                            name="StaffScreen"
+                            component={StaffScreen}
+                            />
+                            </Drawer.Navigator>
+                            
+                        )}
+                </Stack.Screen>
+                <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
                 <Stack.Screen name="LogStaff" component={LogStaff} />
                 </>
             )}

@@ -12,7 +12,7 @@ import ProdukInformationScreen from './produk/information';
 import ProdukManagementScreen from './produk/management';
 
 import ProfileScreen from './User';
-import DraweUser from './User/DraweUser';
+import DrawerScreen from './Drawer';
 
 export {
     Splash,
@@ -26,5 +26,5 @@ export {
     ProdukInformationScreen,
     ProdukManagementScreen,
     ProfileScreen,
-    DraweUser,
+    DrawerScreen,
 };

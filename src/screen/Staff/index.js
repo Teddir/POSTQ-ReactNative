@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { 
     View, 
     Text, 
@@ -9,8 +10,11 @@ import {
     Image, 
     TextInput, 
     ToastAndroid, 
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Modal,
+    Button
 } from 'react-native';
+import QRCodeScanner from 'react-native-qrcode-scanner';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon1 from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,9 +26,15 @@ import { getKategori } from '../../services/endpoint/kategori';
 import { getProduk } from '../../services/endpoint/produk';
 import { styles, colors } from '../../style';
 
-const index = ({navigation}) => {
+const index = () => {
+    const navigation = useNavigation();
     const [ loading, setLoading ] = useState(false);
     const { user, produk, listKategori } = useSelector((state) => state)
+    const [modal, setModal] = useState(false);         //-----------------------> scanner modal
+    const [scanItem, setScanItem] = useState('');  
+    const [scanType, setScanType] = useState('item');
+    const [uid, setUid] =useState(null);
+    
     console.log('Produk ', produk.dataProduk ? 'ada' : 'tidak ada produk');  
     
     const getData = () => {
@@ -42,7 +52,19 @@ const index = ({navigation}) => {
         return _.replace(price, /\B(?=(\d{3})+(?!\d))/g, '.');
     }
 
+    const onScanSuccess = e => {
+        // console.log(e)
+        if (scanType === 'item') {
+            setUid(e.data)
+            setModal(false);
+            setScanItem(e);
+        } else {
+            setModal(false);
+        }
+    };
+
     return (
+        <>
         <View style={[styles.flex1, styles.backgroundLight]}>
             <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
                 <View style={[styles.underCross, styles.marginVs]}>
@@ -136,13 +158,33 @@ const index = ({navigation}) => {
             </ScrollView>
             <View style={[styles.flex1, styles.centerItem]}/>
             <View style={[styles.lingkaran, styles.backgroundPrimary]}>
-            <TouchableOpacity onPress={() => console.log('dsd')}>
+            <TouchableOpacity onPress={() => setModal(true)}>
                 <View style={[styles.centerItem]}>
                     <Icon name="barcode-scan" size={25} color={colors.white}/>
                 </View>
             </TouchableOpacity>
             </View>
+            <Modal onRequestClose={() => setModal(false)} visible={modal}>
+            <QRCodeScanner
+                vibrate
+                showMarker
+                reactivate
+                reactivateTimeout={5000}
+                onRead={onScanSuccess}
+                topContent={
+                <Text >
+                    your computer and scan the QR code.
+                </Text>
+                }
+                bottomContent={
+                <TouchableOpacity onPress={() => setModal(false)}>
+                    <Text >Scan { scanType === 'item' ? 'barang' : null } </Text>
+                </TouchableOpacity> 
+                }
+            />
+            </Modal>
         </View>
+        </>
     )
 }
 

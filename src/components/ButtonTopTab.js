@@ -110,7 +110,7 @@ const ButtonTopTab = (props) => {
             </Tab.Navigator>
             <View style={[styles.marginVs, styles.marginHm,]}>
                 <ButtonView
-                title="Masuk"
+                title="Tambah"
                 loading={loading}
                 onPress={() => handleSubmit()}
                 />
