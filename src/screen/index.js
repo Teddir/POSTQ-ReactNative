@@ -14,6 +14,8 @@ import ProdukManagementScreen from './produk/management';
 import ProfileScreen from './User';
 import DrawerScreen from './Drawer';
 
+import DetailTransaksiScreen from './transaksi';
+
 export {
     Splash,
     Intro,
@@ -27,4 +29,5 @@ export {
     ProdukManagementScreen,
     ProfileScreen,
     DrawerScreen,
+    DetailTransaksiScreen,
 };

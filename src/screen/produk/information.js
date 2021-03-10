@@ -70,8 +70,6 @@ const information = ({
     console.log('supplier', supplier.dataSupplier ? 'ada' : 'tidak ada' );    
 
 
-
-
     const getData = () => {
         getProduk();
         getKategori();

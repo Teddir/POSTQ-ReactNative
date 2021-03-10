@@ -69,6 +69,26 @@ const supplierReducer = (state = {}, action) => {
     };
 }
 
+const transaksiReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_TRANSAKSI':
+            return action.data
+        case 'SET_ADD_TRANSAKSI':
+            return action.data
+        default:
+            return state;
+    }
+}
+
+const itemTransaksiReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_SaveItem':   //------------------> nyimpen item barang
+            return action.data
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     user: userReducer,
     token: tokenReducer, 
@@ -76,4 +96,6 @@ export default combineReducers({
     produkBuy: produkBuyReducer,
     listKategori: kategoriReducer,
     supplier: supplierReducer,
+    transaksi: transaksiReducer,
+    itemTransaksi: itemTransaksiReducer,
 });

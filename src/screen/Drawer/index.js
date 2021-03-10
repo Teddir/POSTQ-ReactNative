@@ -20,7 +20,7 @@ const Drawer = ({navigation}) => {
       <StatusBar backgroundColor={colors.blackBg} barStyle="light-content" />
       <View style={[styles.container, styles.underCross]}>
         <View style={[styles.centerCenter,styles.marginVm, styles.marginHs,]}>
-          <View style={[styles.backgroundTen,{borderColor: 'black', borderWidth:1, borderRadius:10, alignContent:"center",}, styles.centerItem]}>
+          <View style={[styles.backgroundAsli,{borderColor: 'black', borderWidth:1, borderRadius:10, alignContent:"center",}, styles.centerItem]}>
             <Text style={[styles.textH3, styles.textBlack]}>
               POSTQ
             </Text>
@@ -92,17 +92,17 @@ const Drawer = ({navigation}) => {
         </View>
       </View>
       <View style={[styles.flex1,{justifyContent:"flex-end"}]}>
-        <View style={[styles.backgroundTen]}>
+        <View style={[styles.backgroundAsli]}>
           <View style={[styles.marginButton, styles.row, styles.centerItem, styles.marginHxl]}>
-            <View style={[styles.backgroundTen, styles.marginHs, styles.marginVs, {borderRadius:5}, styles.centercenter]}>
+            <View style={[styles.backgroundAsli, styles.marginHs, styles.marginVs, {borderRadius:5}, styles.centercenter]}>
               <Icon1 name="logo-github" size={15}/>
             </View>
             <Text style={{fontSize:8}}>@Teddir_</Text>
-            <View style={[styles.backgroundTen, styles.marginHs, styles.marginVs, {borderRadius:5}, styles.centercenter]}>
+            <View style={[styles.backgroundAsli, styles.marginHs, styles.marginVs, {borderRadius:5}, styles.centercenter]}>
               <Icon1 name="logo-twitter" size={15}/>
             </View>
             <Text style={{fontSize:8}}>@Teddir</Text>
-            <View style={[styles.backgroundTen, styles.marginHs, styles.marginVs, {borderRadius:5}, styles.centercenter]}>
+            <View style={[styles.backgroundAsli, styles.marginHs, styles.marginVs, {borderRadius:5}, styles.centercenter]}>
               <Icon1 name="logo-linkedin" size={15}/>
             </View>
             <Text style={{fontSize:8}}>@teddi-rahman</Text>

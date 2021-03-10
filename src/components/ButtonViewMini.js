@@ -11,7 +11,7 @@ const ButtonViewMini = ({onPress, title, loading, dark, disabled, off}) => {
             <View
             style={[
                 styles.buttonMini,
-                dark ? styles.backgroundNine : styles.backgroundSecondary,
+                dark ? styles.backgroundAsli : styles.backgroundSecondary,
                 off ? styles.backgroundTen : null
             ]}>
             {loading ? (

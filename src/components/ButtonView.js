@@ -10,8 +10,21 @@ const ButtonView = ({onPress, title, loading, dark, disabled, off}) => {
         onPress={() => (onPress ? onPress() : null)}>
             <View
             style={[
-                styles.button,
-                dark ? styles.backgroundPrimary : styles.backgroundSecondary,
+                dark ? {
+                    borderWidth:1,
+                    borderColor:"grey", 
+                    backgroundColor:"white",
+                    borderRadius: 5,
+                    paddingVertical: 16,
+                    alignItems: 'center',
+                    // elevation: 20,
+                } : {
+                    borderRadius: 5,
+                    paddingVertical: 16,
+                    alignItems: 'center',
+                    elevation: 20,
+                    backgroundColor: colors.asli,                    
+                },
                 off ? styles.backgroundTen : null
             ]}>
             {loading ? (
@@ -24,10 +37,20 @@ const ButtonView = ({onPress, title, loading, dark, disabled, off}) => {
             ) : (
                 <Text
                 style={[
-                    styles.textWhite,
-                    styles.textUppercase,
-                    styles.textCenter,
-                    styles.textMedium
+                    dark ?
+                    {
+                        color:"grey",
+                        textTransform: "uppercase",
+                        textAlign: "center",
+                        fontSize: 14,
+                        fontWeight: "700"
+                    } : {
+                        color:"white",
+                        textTransform: "uppercase",
+                        textAlign: "center",
+                        fontSize: 14,
+                        fontWeight: "700"
+                    }
                 ]}>
                 {title}
                 </Text>

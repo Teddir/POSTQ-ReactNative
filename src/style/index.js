@@ -11,12 +11,13 @@ export const colors = {
     lightBg: '#FFF',
     white: '#FEFEFE',
     grey: '#F2F2F2',
-    greyOne: '#5F5F5F',
+    greyOne: '#D4D2D2',
     blackBg: '#000',
     black: '#1F1F1F',
     opacity: '#1F1F1F99',
     nine: '#4b4b4b',
-    ten: '#b2bec3'
+    ten: '#b2bec3',
+    asli: '#FF668C'
 };
 
 export const styles = StyleSheet.create({
@@ -48,6 +49,9 @@ export const styles = StyleSheet.create({
     },
     backgroundTen: {
         backgroundColor: colors.ten
+    },
+    backgroundAsli: {
+        backgroundColor: colors.asli
     },
     centercenter: {
         alignItems: 'center',
@@ -84,7 +88,7 @@ export const styles = StyleSheet.create({
         fontSize: 14
     },
     textInput: {
-        borderRadius: 10,
+        borderRadius: 5,
         elevation: 3,
         backgroundColor: colors.grey,
         borderWidth: 2,  //----------------> untuk border 
@@ -130,7 +134,7 @@ export const styles = StyleSheet.create({
         elevation: 20,
     },
     buttonMini: {
-            borderRadius: 10,
+            borderRadius: 4,
             paddingVertical: 15,
             width: "50%",
             alignItems: 'center',
@@ -159,7 +163,7 @@ export const styles = StyleSheet.create({
         alignSelf: "center",
         borderRadius: 80,
         borderWidth: 1,
-        borderColor: colors.white,
+        borderColor: colors.grey,
         width: 50,
         height: 50,
         justifyContent: 'center',
@@ -180,12 +184,12 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.backgroundNine,
     },
     underCrossBg: {
-        borderBottomWidth: 3,
+        borderBottomWidth: 1,
         borderColor: colors.primary,
         backgroundColor: colors.backgroundNine,
     },
     topCrossBg: {
-        borderTopWidth: 3,
+        borderTopWidth: 1,
         borderColor: colors.primary,
         backgroundColor: colors.backgroundNine,
     },

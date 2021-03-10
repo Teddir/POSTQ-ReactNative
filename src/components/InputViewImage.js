@@ -50,7 +50,7 @@ const InputViewImage = ({
                     styles.backgroundNine,
                     styles.marginVs,
                     styles.marginHs,
-                    {borderRadius: 10}
+                    {borderRadius: 5}
                 ]}>
                 <View style={[styles.centercenter, styles.flex1]}>
                     <Icon name="image-area" size={30} color={colors.white}/>

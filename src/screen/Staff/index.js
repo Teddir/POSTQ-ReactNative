@@ -12,7 +12,8 @@ import {
     ToastAndroid, 
     TouchableWithoutFeedback,
     Modal,
-    Button
+    Button,
+    TouchableHighlight
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -25,21 +26,30 @@ import InputView2 from '../../components/InputView2';
 import { getKategori } from '../../services/endpoint/kategori';
 import { getProduk } from '../../services/endpoint/produk';
 import { styles, colors } from '../../style';
+import { getTransaksi } from '../../services/endpoint/transaksi';
+import { addTransaksi, setSaveItem } from '../../redux/transaksiAction';
+import store from '../../redux/store';
 
 const index = () => {
     const navigation = useNavigation();
     const [ loading, setLoading ] = useState(false);
-    const { user, produk, listKategori } = useSelector((state) => state)
+    const { user, produk, listKategori, itemTransaksi } = useSelector((state) => state)
     const [modal, setModal] = useState(false);         //-----------------------> scanner modal
     const [scanItem, setScanItem] = useState('');  
     const [scanType, setScanType] = useState('item');
     const [uid, setUid] =useState(null);
+
+    const [nameBarang, setNameBarang] = useState(null);  //----------------------> add transaksi
+    const [barcode, setBarcode] = useState(null);
+    const [pay, setPay] = useState('0');
+    const [jumlahBarang, setJumlahBarang] = useState(null);
     
     console.log('Produk ', produk.dataProduk ? 'ada' : 'tidak ada produk');  
     
     const getData = () => {
         getProduk();
         getKategori();
+        getTransaksi();
     }
     useEffect(() => {
         const unsub = navigation.addListener('focus', () => {
@@ -50,6 +60,20 @@ const index = () => {
 
     const toPrice = (price) => {
         return _.replace(price, /\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    const handleAddTransaksi = (data) => {
+        // console.log(data);
+        let item = jumlahBarang+1
+        let totalBayar = parseFloat(pay) + parseFloat(data.hj);
+        // console.log(totalBayar);
+        setJumlahBarang(item)
+        setPay(totalBayar.toString());
+    }
+
+    const handleDetailTransaksi = (jumlahBarang, pay) => {
+        console.log(jumlahBarang, pay);
+        navigation.navigate("DetailTransaksiScreen")
     }
 
     const onScanSuccess = e => {
@@ -76,11 +100,34 @@ const index = () => {
                         <Icon name="text-box-search-outline" size={25}/>
                         <TextInput 
                         placeholder="Cari produk di semua kategori"
-
                         />
                     </View>
                 </View>
             </View>
+            {jumlahBarang > 0 ? (
+                <>
+                <View style={[styles.marginHs, {height:"4%", borderRadius:5, backgroundColor:"#FF668C", elevation:15}]}>
+                <TouchableOpacity onPress={() => handleDetailTransaksi(jumlahBarang, pay)}>
+                    <View style={[styles.marginHm,styles.row, {marginVertical:10}]}>
+                        <Icon1 name="add-shopping-cart" size={25} color="white"/>
+                        <Text style={[styles.marginHm, {
+                            fontSize:15, 
+                            color: 'white',
+                            fontWeight:"bold",
+                            elevation: 20
+                        }]}>{jumlahBarang ? jumlahBarang : null} Items</Text>
+                        <View style={[
+                            styles.flex1,
+                            styles.centerItem,
+                            styles.textRight,
+                        ]}>
+                        <Text style={{color: 'white', fontSize:15, fontWeight:"bold"}}>Rp.{pay ? toPrice(pay) : null},-</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                </View>
+                </>
+            ) : null}
             <ScrollView
                 refreshControl={
                     <RefreshControl 
@@ -109,7 +156,7 @@ const index = () => {
                                         styles.underCross,
                                         styles.marginHm, 
                                     ]}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => handleAddTransaksi(produk)}>
                                         <View 
                                         style={[
                                             styles.marginMini,
@@ -148,21 +195,24 @@ const index = () => {
                 </>
             ): null}
             <View style={[styles.flex1, styles.marginHxl]}>
-                <View style={[styles.marginButton, {marginBottom: 50}]}>
+                <View style={[styles.marginButton, {marginBottom: 60}]}>
                     <ButtonView
+                    dark
                     title="Tambah Produk"
                     onPress={() => {navigation.navigate('ProdukInScreen')}}
                     />
                 </View>
             </View>
             </ScrollView>
-            <View style={[styles.flex1, styles.centerItem]}/>
-            <View style={[styles.lingkaran, styles.backgroundPrimary]}>
+
+            <View style={[styles.flex1, ]}/>
+            <View style={[styles.lingkaran, styles.centerItem, styles.backgroundAsli]}>
             <TouchableOpacity onPress={() => setModal(true)}>
                 <View style={[styles.centerItem]}>
                     <Icon name="barcode-scan" size={25} color={colors.white}/>
                 </View>
             </TouchableOpacity>
+            </View>
             </View>
             <Modal onRequestClose={() => setModal(false)} visible={modal}>
             <QRCodeScanner
@@ -183,7 +233,6 @@ const index = () => {
                 }
             />
             </Modal>
-        </View>
         </>
     )
 }
