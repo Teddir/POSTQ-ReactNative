@@ -80,9 +80,9 @@ const transaksiReducer = (state = {}, action) => {
     }
 }
 
-const itemTransaksiReducer = (state = {}, action) => {
+const cartReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_SaveItem':   //------------------> nyimpen item barang
+        case 'SET_CART':   //------------------> nyimpen item barang
             return action.data
         default:
             return state;
@@ -97,5 +97,5 @@ export default combineReducers({
     listKategori: kategoriReducer,
     supplier: supplierReducer,
     transaksi: transaksiReducer,
-    itemTransaksi: itemTransaksiReducer,
+    cart: cartReducer,
 });

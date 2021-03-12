@@ -2,9 +2,11 @@ import { api, host } from '../API/webApi';
 import store from '../../redux/store';
 import { setProduk } from '../../redux/produkAction';
 import axios from 'axios';
+import { setCart } from '../../redux/transaksiAction';
 
 export const getProduk = () => {
     const data = {loading: true, dataProduk: {}, error: false};
+    store.dispatch(setCart(data));
     store.dispatch(setProduk(data));
     api('GET', '/barangs')
         .then((res) => {
@@ -18,6 +20,7 @@ export const getProduk = () => {
         .catch((e) => (data.error = e.message))
         .finally(() => {
             data.loading = false;
+            store.dispatch(setCart(data));
             store.dispatch(setProduk(data));
         });
 };

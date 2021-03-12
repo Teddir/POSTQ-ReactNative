@@ -43,6 +43,9 @@ const index = () => {
     const [barcode, setBarcode] = useState(null);
     const [pay, setPay] = useState('0');
     const [jumlahBarang, setJumlahBarang] = useState(null);
+    const [listData, setListData] = useState([]);
+    const [detailData, setDetailData] = useState([]);
+    const [total, setTotal] = useState(0); 
     
     console.log('Produk ', produk.dataProduk ? 'ada' : 'tidak ada produk');  
     
@@ -64,16 +67,47 @@ const index = () => {
 
     const handleAddTransaksi = (data) => {
         // console.log(data);
-        let item = jumlahBarang+1
-        let totalBayar = parseFloat(pay) + parseFloat(data.hj);
+        // let item = jumlahBarang+1
+        // setJumlahBarang(item)
+        // let totalBayar = parseFloat(pay) + parseFloat(data.hj);
         // console.log(totalBayar);
-        setJumlahBarang(item)
-        setPay(totalBayar.toString());
+        // setPay(totalBayar.toString());
+        // const indexBarang = listData.findIndex( (el) => {
+        //     return el.id === data.id
+        // })
+        // if (indexBarang >= 0) {
+        //     const arr = Array.from(listData)
+        //     // arr.splice(indexBarang, 1, {...listData[indexBarang], hj: parseFloat(listData[indexBarang].hj) + parseFloat(data.hj)});
+        //     arr[indexBarang].hj = parseFloat(listData[indexBarang].hj) + parseFloat(data.hj);
+        //     setListData(arr);
+        // } else {
+        // }
+        setListData(listData.concat([data]));
+        // console.log(indexBarang);
     }
 
-    const handleDetailTransaksi = (jumlahBarang, pay) => {
-        console.log(jumlahBarang, pay);
-        navigation.navigate("DetailTransaksiScreen")
+    useEffect(() => {
+        console.log(listData);
+        try {
+            if (listData.length > 0) {
+                const totalJual = listData.reduce((acumu, current) => {
+                    return (
+                        acumu + parseFloat(current.hj)
+                    )
+                },0)
+                setTotal(totalJual);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },[listData]);
+    
+
+    console.log(total);
+
+    const handleDetailTransaksi = (listData, total) => {
+        console.log(listData);
+        navigation.navigate("DetailTransaksiScreen", listData, total)
     }
 
     const onScanSuccess = e => {
@@ -104,24 +138,24 @@ const index = () => {
                     </View>
                 </View>
             </View>
-            {jumlahBarang > 0 ? (
+            {listData.length > 0 ? (
                 <>
-                <View style={[styles.marginHs, {height:"4%", borderRadius:5, backgroundColor:"#FF668C", elevation:15}]}>
-                <TouchableOpacity onPress={() => handleDetailTransaksi(jumlahBarang, pay)}>
-                    <View style={[styles.marginHm,styles.row, {marginVertical:10}]}>
+                <View style={[styles.marginHs, {height:"5%", borderRadius:5, backgroundColor:"#FF668C", elevation:15}]}>
+                <TouchableOpacity onPress={() => handleDetailTransaksi(listData, total)}>
+                    <View style={[styles.marginHm,styles.row, {marginVertical:5}]}>
                         <Icon1 name="add-shopping-cart" size={25} color="white"/>
                         <Text style={[styles.marginHm, {
                             fontSize:15, 
                             color: 'white',
                             fontWeight:"bold",
                             elevation: 20
-                        }]}>{jumlahBarang ? jumlahBarang : null} Items</Text>
+                        }]}>{listData.length.toString()} Items</Text>
                         <View style={[
                             styles.flex1,
                             styles.centerItem,
                             styles.textRight,
                         ]}>
-                        <Text style={{color: 'white', fontSize:15, fontWeight:"bold"}}>Rp.{pay ? toPrice(pay) : null},-</Text>
+                        <Text style={{color: 'white', fontSize:15, fontWeight:"bold"}}>Rp.{toPrice(total)},-</Text>
                         </View>
                     </View>
                 </TouchableOpacity>

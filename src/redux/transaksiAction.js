@@ -14,10 +14,10 @@ export const setAddTransaksi = (data) => {
     };
 }
 
-export const setSaveItem = (data) => {                                //------------------> nyimpen item barang
-    console.log('redux saveItem :', data ? 'isi' : 'tidak isi');
+export const setCart = (data) => {                                //------------------> nyimpen item barang
+    console.log('redux cart :', data ? 'isi' : 'tidak isi');
     return {
-        type: 'SET_SaveItem',
+        type: 'SET_CART',
         data: data,
     };
 }
