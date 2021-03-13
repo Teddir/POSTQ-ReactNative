@@ -21,3 +21,19 @@ export const setCart = (data) => {                                //------------
         data: data,
     };
 }
+
+export const setAddCart = (data) => {
+    console.log('redux Addcart :', data ? 'isi' : 'tidak isi');
+    return {
+        type: 'SET_ADD_CART',
+        data: data,
+    };
+}
+
+export const setDeleteCart = (data) => {
+    console.log('redux delete :', data ? 'isi' : 'tidak isi');
+    return {
+        type: 'SET_DELETE_CART',
+        data: data,
+    }
+}

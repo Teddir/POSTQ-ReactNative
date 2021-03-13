@@ -84,6 +84,8 @@ const cartReducer = (state = {}, action) => {
     switch (action.type) {
         case 'SET_CART':   //------------------> nyimpen item barang
             return action.data
+        case 'SET_ADD_CART':
+            return action.data
         default:
             return state;
     }
