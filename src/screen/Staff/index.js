@@ -135,7 +135,7 @@ const index = () => {
                         <Icon1 name="dehaze" size={24}/>
                         </TouchableWithoutFeedback>
                     <View style={[styles.row, styles.marginVs, styles.centerItem, ]}>
-                        <Icon name="text-box-search-outline" size={25}/>
+                        <Icon name="text-box-search-outline" size={25} />
                         <TextInput 
                         placeholder="Cari produk di semua kategori"
                         />
