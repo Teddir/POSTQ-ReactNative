@@ -34,7 +34,7 @@ import { addCart, getCart } from '../../services/endpoint/cart';
 const index = () => {
     const navigation = useNavigation();
     const [ loading, setLoading ] = useState(false);
-    const { user, produk, listKategori, itemTransaksi } = useSelector((state) => state)
+    const { user, produk, listKategori, cart } = useSelector((state) => state)
     const [modal, setModal] = useState(false);         //-----------------------> scanner modal
     const [scanItem, setScanItem] = useState('');  
     const [scanType, setScanType] = useState('item');
@@ -49,7 +49,8 @@ const index = () => {
     const [total, setTotal] = useState(0); 
     
     console.log('Produk ', produk.dataProduk ? 'ada' : 'tidak ada produk');  
-    
+    const cartNew = cart.dataCart;
+
     const getData = () => {
         getProduk();
         getKategori();
@@ -70,13 +71,13 @@ const index = () => {
     const handleAddTransaksi = (data) => {
         console.log(data);
         setLoading(true);
-        addCart(data.name, data.uid)
+        addCart(data.name, null)
         .then((res) => {
             console.log(res)
             ToastAndroid.show('Berhasil ditambah', 1200);
             if (res.Status === "Sucess") {
                 navigation.navigate('StaffScreen');
-                setListData(listData.concat([data]));
+                getData();
                 setLoading(false);
             } else {
                 ToastAndroid.show('Gagal menambah', 1200);
@@ -91,38 +92,60 @@ const index = () => {
     }
 
     useEffect(() => {
-        console.log(listData);
+        console.log(detailData);
         try {
-            if (listData.length > 0) {
-                const totalJual = listData.reduce((acumu, current) => {
+            if (cartNew !== null ) {
+                const totalJual = cartNew.reduce((acumu, current) => {
                     return (
-                        acumu + parseFloat(current.hj)
+                        acumu + parseFloat(current.subtotal)
                     )
                 },0)
                 setTotal(totalJual);
+
+                const totalQty = cartNew.reduce((acumu, current) => {
+                    return (
+                        acumu + parseFloat(current.qty)
+                    )
+                },0)
+                setDetailData(totalQty);
             }
         } catch (error) {
             console.log(error);
         }
-    },[listData]);
+    },[cartNew]);
     
 
-    console.log(total);
-
-    const handleDetailTransaksi = (listData, total) => {
-        console.log(listData);
-        navigation.navigate("DetailTransaksiScreen", listData, total)
+    const handleDetailTransaksi = (cartNew) => {
+        getCart();
+        navigation.navigate("DetailTransaksiScreen", cartNew)
     }
 
     const onScanSuccess = e => {
-        // console.log(e)
-        if (scanType === 'item') {
-            setUid(e.data)
+        console.log(e)
+        setLoading(true);
+        addCart(null, e.data)
+        .then((res) => {
+            console.log(res)
+            ToastAndroid.show('Berhasil ditambah', 1200);
+            if (res.Status === "Sucess") {
+                navigation.navigate('StaffScreen');
+                setModal(false);
+            } else {
+                ToastAndroid.show('Gagal menambah', 1200);
+                setModal(false);
+            }
+        })
+        .catch((e) => {
+            ToastAndroid.show('Barang tidak ditemukan', 1200);
+            console.log(e);
             setModal(false);
-            setScanItem(e);
-        } else {
-            setModal(false);
-        }
+        });
+        // if (scanType === 'item') {
+        //     setUid(e.data)
+            // setScanItem(e);
+        // } else {
+        //     setModal(false);
+        // }
     };
 
     return (
@@ -142,10 +165,10 @@ const index = () => {
                     </View>
                 </View>
             </View>
-            {listData.length > 0 ? (
+            {cartNew !== undefined ? (
                 <>
                 <View style={[styles.marginHs, {height:"4%", borderRadius:5, backgroundColor:"#FF668C", elevation:15}]}>
-                <TouchableOpacity onPress={() => handleDetailTransaksi(listData, total)}>
+                <TouchableOpacity onPress={() => handleDetailTransaksi(cartNew, total)}>
                     <View style={[styles.marginHm,styles.row, {marginVertical:8}]}>
                         <Icon1 name="add-shopping-cart" size={25} color="white"/>
                         <Text style={[styles.marginHm, {
@@ -153,7 +176,7 @@ const index = () => {
                             color: 'white',
                             fontWeight:"bold",
                             elevation: 20
-                        }]}>{listData.length.toString()} Items</Text>
+                        }]}>{detailData} Items</Text>
                         <View style={[
                             styles.flex1,
                             styles.centerItem,

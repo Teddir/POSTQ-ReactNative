@@ -40,9 +40,9 @@ const ButtonTopTab = (props) => {
 
 
     const handleSubmit = () => {
-        // console.log('avatar masuk', barang, uid, beli, jual, kategori, merek, stok, diskon, avatar)
+        console.log('barang masuk', barang, uid, beli, jual, kategori, merek, stok, diskon, avatar)
         setLoading(true);
-        addProduk(barang ? barang.barang : null, uid, beli ? beli.tbayar : null, jual, kategori ? kategori.id : null, merek, stok ? stok.tbarang : null, diskon, avatar)
+        addProduk(barang ? barang.id : null, uid, beli ? beli.tbayar : null, jual, kategori ? kategori.id : null, merek, stok ? stok.tbarang : null, diskon, avatar)
         .then((res) => {
             ToastAndroid.show('Berhasil ditambah', 1200);
             console.log(res)

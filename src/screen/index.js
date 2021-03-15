@@ -14,7 +14,9 @@ import ProdukManagementScreen from './produk/management';
 import ProfileScreen from './User';
 import DrawerScreen from './Drawer';
 
-import DetailTransaksiScreen from './transaksi';
+import DetailTransaksiScreen from './transaksi/index';
+import TunaiScreen from './transaksi/metodePay/tunai';
+import NonTunaiScreen from './transaksi/metodePay/nonTunai';
 
 export {
     Splash,
@@ -30,4 +32,6 @@ export {
     ProfileScreen,
     DrawerScreen,
     DetailTransaksiScreen,
+    TunaiScreen,
+    NonTunaiScreen,
 };

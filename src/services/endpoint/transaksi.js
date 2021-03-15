@@ -1,6 +1,6 @@
 import { api } from '../API/webApi';
 import store from '../../redux/store';
-import { setTransaksi, setAddTransaksi } from '../../redux/transaksiAction';
+import { setTransaksi } from '../../redux/transaksiAction';
 
 export const getTransaksi = () => {
     const data = {loading: true, dataTransaksi: {}, error: false};

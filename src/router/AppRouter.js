@@ -18,6 +18,7 @@ import {
     DetailTransaksiScreen,
 } from '../screen';
 import ButtonTopTab from '../components/ButtonTopTab';
+import ButtonTopTabTwo from '../components/ButtonTopTabTwo';
 import { View, Text, TouchableOpacity } from 'react-native';
 import AsynStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -128,6 +129,7 @@ const AppRouter = () => {
                             
                         )}
                     </Stack.Screen>                   */}
+                    <Stack.Screen name="BayarTransaksiScreen" component={ButtonTopTabTwo} options={{ headerShown: true, }}/>
                     <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
                     <Stack.Screen name="DetailTransaksiScreen" component={DetailTransaksiScreen} />
                     </>
@@ -151,6 +153,7 @@ const AppRouter = () => {
                         )}
                 </Stack.Screen>
                 <Stack.Screen name="DetailTransaksiScreen" component={DetailTransaksiScreen} />
+                <Stack.Screen name="BayarTransaksiScreen" component={ButtonTopTabTwo} options={{ headerShown: true, }}/>
                 <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, }}/>
                 <Stack.Screen name="LogStaff" component={LogStaff} />
                 </>

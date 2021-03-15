@@ -1,6 +1,6 @@
 import { api } from '../API/webApi';
 import store from '../../redux/store';
-import { setCart } from '../../redux/transaksiAction';
+import { setCart, setAddCart, setDeleteCart } from '../../redux/transaksiAction';
 
 export const getCart = () => {
     const data = { loading: true, dataCart: {}, error: false};
@@ -26,9 +26,10 @@ export const addCart = (barang, barcode) => {
         barang, 
         barcode
     }
+    console.log(body);
     return api('POST', '/carts/create', body);
 }
 
-// export const deleteCart = (id) => {
-//     return api("DELETE", `/carts/delete/${id}`);
-// }
+export const deleteCart = (id) => {
+    return api("DELETE", `/carts/delete/${id}`);
+}
