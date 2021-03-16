@@ -1,16 +1,36 @@
 import React, { useState, useEffect} from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import ButtonViewIcon from '../../../components/ButtonViewIcon';
 import { styles } from '../../../style';
 import LogoPembayaran from '../../../assets/img/metodePembayaran.svg';
 import ButtonView from '../../../components/ButtonView';
+import { addTransaksi } from '../../../services/endpoint/transaksi';
 
 
 const tunai = () => {
     const navigation = useNavigation();
     const [pay, setPay] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = () => {
+        setLoading(true);
+        addTransaksi()
+        .then((res) => {
+            if (res.Status === "Succes") {
+                ToastAndroid.show("Berhasil melakukan pembayaran", 1200);
+                setLoading(false)
+            } else {
+                ToastAndroid.show("Gagal Melakukan transaksi", 1200);
+                setLoading(false)
+            }
+        })
+        .catch((e) => {
+            ToastAndroid.show(e, 1200),
+            setLoading(false)
+        })
+    }
 
     return (
         <View style={[styles.flex1, styles.grey]}>
@@ -42,6 +62,7 @@ const tunai = () => {
                     title="Uang Pas"
                     dark
                     name="money-bill"
+                    loading={loading}
                     />
                 </View>
             </View>

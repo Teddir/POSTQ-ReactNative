@@ -10,7 +10,7 @@ export const api = (method, path, body = null, file = null) => {
     file ? null : headers.append('Content-Type', 'application/json');
     token !== null ? headers.append('Authorization', 'Bearer ' + token) : null;
     
-    console.log('ini di endpoint', file)
+    // console.log('ini di endpoint', file)
     const data = fetch(host + path, {
         method: method,
         headers: headers,
@@ -23,7 +23,7 @@ export const api = (method, path, body = null, file = null) => {
                 store.dispatch(clearToken())
             }
         }
-        console.log(resJson);
+        // console.log(resJson);
         return resJson;
     })
     .catch((e) => {
