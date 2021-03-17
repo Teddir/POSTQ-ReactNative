@@ -21,12 +21,9 @@ export const getTransaksi = () => {
     });
 }
 
-export const addTransaksi = (name_barang, barcode_barang, pay, jb) => {
+export const addTransaksi = (pay) => {
     const body = {
-        name_barang,
-        barcode_barang,
-        pay,
-        jb
+        pay
     };
     return api('POST', '/transaksis/create', body);
 }

@@ -25,5 +25,18 @@ const changeToken = (data) => {
     };
 };
 
+export const setMember = (data) => {
+    return {
+        type: 'SET_MEMBER',
+        data: data,
+    }
+}
+
+export const setPelanggan = (data) => {
+    return {
+        type: 'SET_PELANGGAN',
+        data: data,
+    }
+}
 
 export {setUser, clearToken, changeToken};

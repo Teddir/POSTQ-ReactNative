@@ -165,7 +165,7 @@ const index = () => {
                     </View>
                 </View>
             </View>
-            {cartNew !== undefined ? (
+            {cart.dataCart ? (
                 <>
                 <View style={[styles.marginHs, {height:"4%", borderRadius:5, backgroundColor:"#FF668C", elevation:15}]}>
                 <TouchableOpacity onPress={() => handleDetailTransaksi(cartNew, total)}>

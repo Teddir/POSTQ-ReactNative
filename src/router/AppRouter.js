@@ -16,6 +16,7 @@ import {
     ProfileScreen,
     DrawerScreen,
     DetailTransaksiScreen,
+    PelangganScreen,
 } from '../screen';
 import ButtonTopTab from '../components/ButtonTopTab';
 import ButtonTopTabTwo from '../components/ButtonTopTabTwo';
@@ -129,6 +130,7 @@ const AppRouter = () => {
                             
                         )}
                     </Stack.Screen>                   */}
+                    <Stack.Screen name="PelangganScreen" component={PelangganScreen}/>
                     <Stack.Screen name="BayarTransaksiScreen" component={ButtonTopTabTwo} options={{ headerShown: true, }}/>
                     <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, headerTitle: "Teddi" }}/>
                     <Stack.Screen name="DetailTransaksiScreen" component={DetailTransaksiScreen} />
@@ -153,6 +155,7 @@ const AppRouter = () => {
                         )}
                 </Stack.Screen>
                 <Stack.Screen name="DetailTransaksiScreen" component={DetailTransaksiScreen} />
+                <Stack.Screen name="PelangganScreen" component={PelangganScreen}/>
                 <Stack.Screen name="BayarTransaksiScreen" component={ButtonTopTabTwo} options={{ headerShown: true, }}/>
                 <Stack.Screen name="ProdukInScreen" component={ButtonTopTab} options={{ headerShown: true, }}/>
                 <Stack.Screen name="LogStaff" component={LogStaff} />

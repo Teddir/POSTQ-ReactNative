@@ -91,6 +91,15 @@ const cartReducer = (state = {}, action) => {
     }
 }
 
+const pelangganReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_PELANGGAN':
+            return action.data
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     user: userReducer,
     token: tokenReducer, 
@@ -100,4 +109,5 @@ export default combineReducers({
     supplier: supplierReducer,
     transaksi: transaksiReducer,
     cart: cartReducer,
+    pelanggan: pelangganReducer,
 });

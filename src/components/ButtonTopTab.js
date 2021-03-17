@@ -21,6 +21,7 @@ import ButtonView from './ButtonView';
 import { getProduk, addProduk } from '../services/endpoint/produk';
 import { getKategori } from '../services/endpoint/kategori';
 import { getProdukBuy } from '../services/endpoint/produkBuy';
+import { getCart } from '../services/endpoint/cart';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -65,6 +66,7 @@ const ButtonTopTab = (props) => {
         getProduk();
         getKategori();
         getProdukBuy();
+        getCart();
     }
 
     useEffect(() => {

@@ -77,23 +77,23 @@ const index = ({route}) => {
         .catch((e) => ToastAndroid.show(e, 1200));
     } 
 
-    const handleDeleteAllCart = (data) => {
-        setLoading(true)
-        console.log(data);
-        deleteCart(data)
-        .then((res) => {
-            if (res.Status === "Succes") {
-                navigation.goBack();
-                ToastAndroid.show('Berhasil dihapus', 1500);
-                getData();
-                setLoading(false);
-            } else {
-                ToastAndroid.show('Gagal dihapus', 1200);
-                setLoading(false);
-            };
-        })
-        .catch((e) => ToastAndroid.show(e, 1200));
-    }
+    // const handleDeleteAllCart = (data) => {
+    //     setLoading(true)
+    //     console.log(data);
+    //     deleteCart(data)
+    //     .then((res) => {
+    //         if (res.Status === "Succes") {
+    //             navigation.goBack();
+    //             ToastAndroid.show('Berhasil dihapus', 1500);
+    //             getData();
+    //             setLoading(false);
+    //         } else {
+    //             ToastAndroid.show('Gagal dihapus', 1200);
+    //             setLoading(false);
+    //         };
+    //     })
+    //     .catch((e) => ToastAndroid.show(e, 1200));
+    // }
 
     return (
         <View style={[styles.flex1]}>
@@ -112,7 +112,7 @@ const index = ({route}) => {
             <ScrollView>
 
             <View style={[styles.marginHm, styles.marginVs,]}>
-                <TouchableOpacity onPress={() => console.log('member/pelanggan')}>
+                <TouchableOpacity onPress={() => navigation.navigate("PelangganScreen")}>
                 <View style={[styles.row]}>
                 <Text style={[styles.textUpH3]}>Pelanggan / Member</Text>
                     <View style={[
@@ -191,21 +191,20 @@ const index = ({route}) => {
                 </View>
                 <View style={[styles.underCross]} />
 
-                <View style={[styles.flex1, styles.centercenter, styles.marginVm]}>
+                {/* <View style={[styles.flex1, styles.centercenter, styles.marginVm]}>
                     <TouchableOpacity onPress={() => handleDeleteAllCart(0)}>
                         <Text style={{color:'grey'}}>Hapus Pesanan</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
             </View>
             </ScrollView>
-            <View style={[styles.backgroundLight]}>
+            <View style={[styles.flex1, styles.centercenter]} />
                 <View style={[styles.marginVs, styles.marginHm]}>
                     <ButtonView
                     title="Bayar"
                     onPress={() => navigation.navigate("BayarTransaksiScreen")}
                     />
                 </View>
-            </View>
         </View>
     )
 }

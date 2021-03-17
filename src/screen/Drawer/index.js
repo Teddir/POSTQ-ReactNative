@@ -7,15 +7,21 @@ import Icon1 from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {clearToken} from '../../redux/action';
 import ButtonView from '../../components/ButtonView';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = ({navigation}) => {
     const dispatch = useDispatch();
-    const {user} = useSelector((state) => state);
-
+    const {user, token} = useSelector((state) => state);
     const rolee = user.data?.[0].role === "1" ? "Owner" : "Kasir";
+    
+    const handleRemoveToken = () => {
+      console.log(token);
+      AsyncStorage.removeItem('token');
+    }
 
 
-   return (
+
+  return (
     <View style={[styles.flex1]}>
       <StatusBar backgroundColor={colors.blackBg} barStyle="light-content" />
       <View style={[styles.container, styles.underCross]}>
@@ -77,7 +83,7 @@ const Drawer = ({navigation}) => {
               <Text style={[styles.textH4, styles.marginHm, styles.marginVm]}>Kelola Toko</Text>
             </View>
           </TouchableNativeFeedback>
-          <TouchableNativeFeedback onPress={() => navigation.navigate('Help')}>
+          <TouchableNativeFeedback onPress={() => handleRemoveToken()}>
             <View style={[styles.row, styles.centerItem]}>
               <Icon1 name="md-help-circle-outline" size={25} color={colors.black} />
               <Text style={[styles.textH4, styles.marginHm, styles.marginVm]}>Bantuan</Text>
