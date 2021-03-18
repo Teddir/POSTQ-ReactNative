@@ -91,9 +91,13 @@ const cartReducer = (state = {}, action) => {
     }
 }
 
-const pelangganReducer = (state = {}, action) => {
+const buyerReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_PELANGGAN':
+        // case 'SET_PELANGGAN':
+        //     return {dataPelanggan:[...(state.dataPelanggan ?? []), action.data]};  //---------> save tanpa endpoint
+        case 'SET_BUYER':
+            return action.data
+        case 'CHANGE_BUYER':
             return action.data
         default:
             return state;
@@ -109,5 +113,5 @@ export default combineReducers({
     supplier: supplierReducer,
     transaksi: transaksiReducer,
     cart: cartReducer,
-    pelanggan: pelangganReducer,
+    buyer: buyerReducer,
 });

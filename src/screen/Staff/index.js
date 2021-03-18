@@ -49,6 +49,7 @@ const index = () => {
     const [total, setTotal] = useState(0); 
     
     console.log('Produk ', produk.dataProduk ? 'ada' : 'tidak ada produk');  
+    console.log('Cart ', cart.dataCart ? 'ada' : 'tidak ada cart');  
     const cartNew = cart.dataCart;
 
     const getData = () => {

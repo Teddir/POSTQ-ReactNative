@@ -25,16 +25,16 @@ const changeToken = (data) => {
     };
 };
 
-export const setMember = (data) => {
+export const setPelanggan = (data) => {
     return {
-        type: 'SET_MEMBER',
+        type: 'SET_BUYER',
         data: data,
     }
 }
 
-export const setPelanggan = (data) => {
+export const changePelanggan = (data) => {
     return {
-        type: 'SET_PELANGGAN',
+        type: 'CHANGE_BUYER',
         data: data,
     }
 }

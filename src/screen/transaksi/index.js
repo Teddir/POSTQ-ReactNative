@@ -11,12 +11,15 @@ import { getProduk } from '../../services/endpoint/produk';
 import { getKategori } from '../../services/endpoint/kategori';
 import ButtonView from '../../components/ButtonView';
 import { getCart, deleteCart } from '../../services/endpoint/cart';
+import { getProfileBuyer } from '../../services/endpoint/buyer';
 
 const index = ({route}) => {
     const navigation = useNavigation();
-    const { produk, kategori, cart } = useSelector((state) => state);
+    const { produk, kategori, cart, buyer } = useSelector((state) => state);
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0); 
+
+    console.log('Buyer', buyer.dataBuyer ? 'ada' : 'tidak');
 
     const toPrice = (price) => {
         return _.replace(price, /\B(?=(\d{3})+(?!\d))/g, '.');
@@ -26,6 +29,7 @@ const index = ({route}) => {
         getProduk();
         getKategori();
         getCart();
+        getProfileBuyer();
     }
 
     useEffect(() => {
@@ -77,6 +81,11 @@ const index = ({route}) => {
         .catch((e) => ToastAndroid.show(e, 1200));
     } 
 
+    const handlePelanggan = () => {
+        getData();
+        navigation.navigate("PelangganScreen")
+    };
+
     // const handleDeleteAllCart = (data) => {
     //     setLoading(true)
     //     console.log(data);
@@ -112,7 +121,7 @@ const index = ({route}) => {
             <ScrollView>
 
             <View style={[styles.marginHm, styles.marginVs,]}>
-                <TouchableOpacity onPress={() => navigation.navigate("PelangganScreen")}>
+                <TouchableOpacity onPress={() => handlePelanggan()}>
                 <View style={[styles.row]}>
                 <Text style={[styles.textUpH3]}>Pelanggan / Member</Text>
                     <View style={[

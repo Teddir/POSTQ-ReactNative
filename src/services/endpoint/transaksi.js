@@ -21,9 +21,10 @@ export const getTransaksi = () => {
     });
 }
 
-export const addTransaksi = (pay) => {
+export const addTransaksi = (pay, pelanggan) => {
     const body = {
-        pay
+        pay,
+        pelanggan
     };
     return api('POST', '/transaksis/create', body);
 }
