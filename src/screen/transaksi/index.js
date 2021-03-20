@@ -108,7 +108,7 @@ const index = ({route}) => {
         <View style={[styles.flex1]}>
             <StatusBar backgroundColor={colors.blackBg} barStyle="light-content"/>
             <View style={[styles.container, styles.row, styles.backgroundLight]}>
-                <TouchableOpacity onPress={() => goback()}>
+                <TouchableOpacity onPress={() => goback()} >
                     <Icon name="chevron-left" size={24} color={colors.blackBg}/>
                 </TouchableOpacity>
                 <Text style={[
