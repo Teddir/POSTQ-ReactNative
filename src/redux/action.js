@@ -39,4 +39,11 @@ export const changePelanggan = (data) => {
     }
 }
 
+export const setIdCustomer = (data) => {
+    return {
+        type: 'SET_ID_CUSTOMER',
+        data: data,
+    }
+}
+
 export {setUser, clearToken, changeToken};

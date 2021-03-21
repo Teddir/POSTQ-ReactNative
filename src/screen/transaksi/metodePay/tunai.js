@@ -8,6 +8,12 @@ import { styles } from '../../../style';
 import LogoPembayaran from '../../../assets/img/metodePembayaran.svg';
 import ButtonView from '../../../components/ButtonView';
 import { addTransaksi } from '../../../services/endpoint/transaksi';
+import store from '../../../redux/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getProduk } from '../../../services/endpoint/produk';
+import { getKategori } from '../../../services/endpoint/kategori';
+import { getProdukBuy } from '../../../services/endpoint/produkBuy';
+import { getSupplier } from '../../../services/endpoint/supplier';
 
 
 const tunai = () => {
@@ -15,8 +21,22 @@ const tunai = () => {
     const [pay, setPay] = useState(null);
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
-    const {cart} = useSelector((state) => state);
+    const {cart, idCustomer} = useSelector((state) => state);
     const cartNew = cart.dataCart
+
+    const getData = () => {
+        getProduk();
+        getKategori();
+        getProdukBuy();
+        getSupplier();
+    }
+
+    useEffect(() => {
+        const unsub = navigation.addListener('focus', () => {
+            getData();
+        });
+        return unsub;
+    }, [navigation]);
 
     useEffect(() => {
         // console.log(listData);
@@ -36,12 +56,14 @@ const tunai = () => {
 
     const handleSubmit = () => {
         setLoading(true);
-        addTransaksi(pay)
+        addTransaksi(pay, idCustomer ? idCustomer.id : null)
         .then((res) => {
             console.log(res)
             if (res.Status === "Sucess") {
+                AsyncStorage.removeItem('idCustomer');
+                getData();
                 ToastAndroid.show("Berhasil melakukan pembayaran", 1200);
-                navigation.navigate("StaffScreen")
+                navigation.navigate("StaffScreen");
                 setLoading(false)
             } else {
                 ToastAndroid.show(`Maaf uang anda kurang `, 1200);
@@ -55,7 +77,7 @@ const tunai = () => {
     }
 
     const handleMoneyPas = () => {
-        addTransaksi(total)
+        addTransaksi(total, idCustomer ? idCustomer.id : null)
         .then((res) => {
             console.log(res)
             if (res.Status === "Sucess") {

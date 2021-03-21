@@ -50,7 +50,6 @@ const index = () => {
     
     console.log('Produk ', produk.dataProduk ? 'ada' : 'tidak ada produk');  
     console.log('Cart ', cart.dataCart ? 'ada' : 'tidak ada cart');  
-    const cartNew = cart.dataCart;
 
     const getData = () => {
         getProduk();
@@ -95,15 +94,15 @@ const index = () => {
     useEffect(() => {
         console.log(detailData);
         try {
-            if (cartNew !== null ) {
-                const totalJual = cartNew.reduce((acumu, current) => {
+            if (cart.dataCart  !== null ) {
+                const totalJual = cart.dataCart.reduce((acumu, current) => {
                     return (
                         acumu + parseFloat(current.subtotal)
                     )
                 },0)
                 setTotal(totalJual);
 
-                const totalQty = cartNew.reduce((acumu, current) => {
+                const totalQty = cart.dataCart.reduce((acumu, current) => {
                     return (
                         acumu + parseFloat(current.qty)
                     )
@@ -113,12 +112,13 @@ const index = () => {
         } catch (error) {
             console.log(error);
         }
-    },[cartNew]);
+    },[cart.dataCart]);
     
-
-    const handleDetailTransaksi = (cartNew) => {
+    console.log(total);
+    
+    const handleDetailTransaksi = (data) => {
         getCart();
-        navigation.navigate("DetailTransaksiScreen", cartNew)
+        navigation.navigate("DetailTransaksiScreen", data)
     }
 
     const onScanSuccess = e => {
@@ -169,7 +169,7 @@ const index = () => {
             {cart.dataCart ? (
                 <>
                 <View style={[styles.marginHs, {height:"4%", borderRadius:5, backgroundColor:"#FF668C", elevation:15}]}>
-                <TouchableOpacity onPress={() => handleDetailTransaksi(cartNew, total)}>
+                <TouchableOpacity onPress={() => handleDetailTransaksi(cart.dataCart, total)}>
                     <View style={[styles.marginHm,styles.row, {marginVertical:8}]}>
                         <Icon1 name="add-shopping-cart" size={25} color="white"/>
                         <Text style={[styles.marginHm, {
@@ -244,6 +244,7 @@ const index = () => {
                                                 styles.textRight
                                             ]}>
                                                 <Text>Rp.{toPrice(produk.hj)},-</Text>
+                                                <Text style={{color: '#FF0000', fontSize: 10}}>DISC {produk.diskon}%</Text>
                                             </View>
                                         </View>
                                         </TouchableOpacity>

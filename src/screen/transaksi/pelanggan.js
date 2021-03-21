@@ -12,13 +12,17 @@ import LogoCustomer from '../../assets/img/noCustomer.svg';
 import InputViewBig from '../../components/InputViewBig';
 import store from '../../redux/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { addBuyer, getProfileBuyer } from '../../services/endpoint/buyer';
+import { addBuyer, getProfileBuyer, updateBuyer } from '../../services/endpoint/buyer';
+import { setIdCustomer } from '../../redux/action';
 
 const pelanggan = () => {
     const navigation = useNavigation();
     const {buyer} = useSelector((state) => state)
     const [loading, setLoading] = useState(false);
     const [addCustomer, setAddCustomer] = useState(null);
+    const [modalDetail, setModaDetail] = useState(false);
+    const [dataDetail, setDataDetail] = useState(null);
+    const [modalUpdate, setModalUpdate] = useState(false);
     const [modalAdd, setModalAdd] = useState(false);
     const [name, setName] = useState(null);
     const [nomor, setNomor] = useState(null);
@@ -68,9 +72,37 @@ const pelanggan = () => {
         })
     }
 
+    const handleUpdateCustomer = () => {
+        setLoading(true);
+        updateBuyer(dataDetail.id, name, nomor, alamat, email)
+        .then((res) => {
+            if (res.Status === "Succes") {
+                ToastAndroid.show('Berhasil mengubah pelanggan', 1200);
+                navigation.navigate('DetailTransaksiScreen')
+                setLoading(false);
+            } else {
+                ToastAndroid.show('data tidak bisa di ubah', 1200);
+                setLoading(false);
+            }
+        })
+        .catch((err) => {
+            ToastAndroid.show(err, 1200);
+            setLoading(false);
+        })
+    }
+
     const handleSavePelanggan = (data) => {
+        // console.log(data);
+        // navigation.navigate("DetailTransaksiScreen", data);
         console.log(data);
-        navigation.navigate("DetailTransaksiScreen", data);
+        setDataDetail(data);
+        setModaDetail(true);
+    }
+
+    const handleIdCustomer = (data) => {
+        console.log(data);
+        store.dispatch(setIdCustomer(data));
+        navigation.navigate("DetailTransaksiScreen");
     }
 
     return (
@@ -91,7 +123,7 @@ const pelanggan = () => {
                 </View>
                 {buyer.dataBuyer.length > 0 ? (
                 <>
-                    <View style={[styles.underCross, styles.marginVs, styles.marginHm]}>
+                    <View style={[styles.marginVs, styles.marginHm, {borderWidth:1, borderRadius:5, borderColor:'grey'}]}>
                             <View style={[styles.row, styles.centerItem,]}>
                                 <View style={{margin:10}}>
                                     <Icon1 name="account-search" size={25}/>
@@ -193,7 +225,150 @@ const pelanggan = () => {
                 
             </View>
             </Modal>
+                <Modal onRequestClose={() => setModalDetail(false)} visible={modalDetail}>
+                    <View style={[styles.flex1, styles.backgroundLight]}>
+                    <View>
+                        <StatusBar backgroundColor={colors.blackBg} barStyle="light-content"/>
+                        <View style={[styles.container, styles.row, styles.backgroundLight]}>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <Icon name="chevron-left" size={24} color={colors.blackBg}/>
+                            </TouchableOpacity>
+                            <Text style={[
+                                styles.marginHm,
+                                styles.centerItem,
+                                styles.textUpH3
+                            ]}>{dataDetail ? dataDetail.name : null}</Text>
+                        </View>
+                        <View style={[styles.underCross, {elevation: 3}]}/>
+                    </View>
+                    
+                    <View style={[styles.marginHm, styles.marginVs]}>
+                        <View style={[
+                            styles.centercenter,
+                            {elevation: 5},
+                            {backgroundColor:"#FFBBDC"}
+                        ]}>
+                            <View  style={[styles.row, styles.marginHm, styles.marginVs]}>
+                            <Text style={{fontWeight: "bold"}}>Data Pelanggan</Text>
+                            <View style={[styles.flex1, styles.textRight]}>
+                            <TouchableOpacity onPress={() => setModalUpdate(true)}>
+                            <Text style={{color: 'blue'}}>Update</Text>
+                            </TouchableOpacity>
+                            </View>
+                            </View>
+                            <View style={[
+                                styles.marginHm,{marginVertical:2},styles.row
+                            ]}>
+                            <Text style={[styles.m]}>Name </Text>
+                            <Text style={{flex:1,marginHorizontal:60}}>{dataDetail ? dataDetail.name : null}</Text>
+                            </View>
+                            <View style={[
+                                styles.marginHm,{marginVertical:2},styles.row
+                            ]}>
+                            <Text>Email </Text>
+                            <Text style={{flex:1,marginHorizontal:60}}> {dataDetail ? dataDetail.email : null}</Text>
+                            </View>
+                            <View style={[
+                                styles.marginHm,{marginVertical:2},styles.row
+                            ]}>
+                            <Text>Nomor</Text>
+                            <Text style={{flex:1,marginHorizontal:60}}>{dataDetail ? dataDetail.phone_number : null}</Text>
+                            </View>
+                            <View style={[
+                                styles.marginHm,{marginVertical:2},styles.row
+                            ]}>
+                            <Text>Alamat</Text>
+                            <Text style={{flex:1,marginHorizontal:60, marginBottom:5}}>{dataDetail ? dataDetail.alamat : null}</Text>
+                            </View>
+                        </View>
+                        <View style={[{backgroundColor:"#FFBBDC"}, {elevation: 5}, styles.marginVs]}>
+                            <View style={[styles.marginVs]}>
+                            <View  style={[styles.marginHm]}>
+                            <Text style={{fontWeight: "bold"}}>Riwayat Kunjungan</Text>
+                            </View>
+                            <View style={[
+                                styles.marginHm,{marginVertical:5},styles.row
+                            ]}>
+                            <Text>Total Kunjungan</Text>
+                            <Text style={{flex:1, textAlign:"right"}}>{dataDetail ? dataDetail.kunjungan == null ? 0 : null : 0}</Text>
+                            </View>
+                            <View style={[
+                                styles.marginHm,{marginVertical:2},styles.row
+                            ]}>
+                            <Text>Kunjungan Terakhir</Text>
+                            <Text style={{flex:1,textAlign:"right"}}>{dataDetail ? dataDetail.updated_at : null}</Text>
+                            </View>
+                            </View>
+                        </View>
+                    </View>
 
+                    <View style={[styles.flex1, styles.centercenter]}/>
+                    <View style={[styles.marginVs, styles.marginHm,]}>
+                        <ButtonView 
+                        title="Tambah Ke Pesanan"
+                        loading={loading}
+                        onPress={() => handleIdCustomer(dataDetail)}
+                        />
+                    </View>
+                    
+                </View>
+                </Modal>
+                <Modal onRequestClose={() => setModalUpdate(false)} visible={modalUpdate}>
+                <View style={[styles.flex1, styles.backgroundLight]}>
+                <View>
+                    <StatusBar backgroundColor={colors.blackBg} barStyle="light-content"/>
+                    <View style={[styles.container, styles.row, styles.backgroundLight]}>
+                        <TouchableOpacity onPress={() => setModalUpdate(false)}>
+                            <Icon name="chevron-left" size={24} color={colors.blackBg}/>
+                        </TouchableOpacity>
+                        <Text style={[
+                            styles.marginHm,
+                            styles.centerItem,
+                            styles.textUpH3
+                        ]}>Update Pelanggan</Text>
+                    </View>
+                    <View style={[styles.underCross, {elevation: 3}]}/>
+                </View>
+                
+                <View style={[styles.marginHm, styles.marginVs]}>
+                    <Text style={[styles.marginVs]}>Name</Text>
+                    <InputView 
+                    placeholder={dataDetail ? dataDetail.name : null}
+                    value={name}
+                    onChangeText={(n) => setName(n)}
+                    />
+                    <Text style={[styles.marginVs]}>Nomor Telepon</Text>
+                    <InputView 
+                    placeholder={dataDetail ? dataDetail.phone_number : null}
+                    value={nomor}
+                    onChangeText={(o) => setNomor(o)}
+                    type="number-pad"
+                    />
+                    <Text style={[styles.marginVs]}>Email</Text>
+                    <InputView 
+                    placeholder={dataDetail ? dataDetail.email : null}
+                    value={email}
+                    onChangeText={(e) => setEmail(e)}
+                    />
+                    <Text style={[styles.marginVs]}>Alamat</Text>
+                    <InputViewBig
+                    placeholder={dataDetail ? dataDetail.alamat : null}
+                    value={alamat}
+                    onChangeText={(n) => setAlamat(n)}
+                    />
+                </View>
+
+                <View style={[styles.flex1, styles.centercenter]}/>
+                <View style={[styles.marginVs, styles.marginHm,]}>
+                    <ButtonView 
+                    title="Simpan"
+                    loading={loading}
+                    onPress={() => handleUpdateCustomer()}
+                    />
+                </View>
+                
+            </View>
+            </Modal>
         </View>
     )
 }

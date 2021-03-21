@@ -15,11 +15,12 @@ import { getProfileBuyer } from '../../services/endpoint/buyer';
 
 const index = ({route}) => {
     const navigation = useNavigation();
-    const { produk, kategori, cart, buyer } = useSelector((state) => state);
+    const { produk, kategori, cart, buyer, idCustomer } = useSelector((state) => state);
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0); 
 
     console.log('Buyer', buyer.dataBuyer ? 'ada' : 'tidak');
+    console.log(idCustomer);
 
     const toPrice = (price) => {
         return _.replace(price, /\B(?=(\d{3})+(?!\d))/g, '.');
@@ -41,6 +42,7 @@ const index = ({route}) => {
 
 
     console.log('ini listData', route.params);
+    console.log('ini customer', idCustomer);
 
     useEffect(() => {
         // console.log(listData);
@@ -123,7 +125,7 @@ const index = ({route}) => {
             <View style={[styles.marginHm, styles.marginVs,]}>
                 <TouchableOpacity onPress={() => handlePelanggan()}>
                 <View style={[styles.row]}>
-                <Text style={[styles.textUpH3]}>Pelanggan / Member</Text>
+                <Text style={[styles.textUpH3]}>{idCustomer !== null ? idCustomer.name : "Pelanggan / Member"}</Text>
                     <View style={[
                         styles.flex1,
                         styles.centercenter,

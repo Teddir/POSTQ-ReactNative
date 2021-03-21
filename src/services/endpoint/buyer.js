@@ -32,6 +32,16 @@ export const addBuyer = (name, nomor, alamat, email) => {
     return api('POST', '/buyers/create', data)
 }
 
+export const updateBuyer = (id, name, nomor, alamat, email) => {
+    const body = {
+        name,
+        nomor,
+        alamat,
+        email
+    }
+    return api('PUT', '/buyers/update/' + id, body)
+}
+
 export const deleteBuyer = (id) => {
     return api('DELETE', `/buyers/delete/${id}`)
 }
